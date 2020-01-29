@@ -65,7 +65,6 @@
         <version.mybatis-typehandlers-jsr310>1.0.2</version.mybatis-typehandlers-jsr310>
         <version.spring.kafka>2.1.6.RELEASE</version.spring.kafka>
         <version.c3p0>0.9.2</version.c3p0>
-        <version.ojdbc>1.4</version.ojdbc>
         <version.mybatis.pageHelper>4.1.6</version.mybatis.pageHelper>
         <version.easymock>2.5.2</version.easymock>
         <version.easymockclassextension>2.5.2</version.easymockclassextension>
@@ -215,13 +214,6 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>${version.mybatis.pageHelper}</version>
-        </dependency>
-
-        <!-- oracle -->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc14</artifactId>
-            <version>${version.ojdbc}</version>
         </dependency>
 
         <!-- mysql -->
