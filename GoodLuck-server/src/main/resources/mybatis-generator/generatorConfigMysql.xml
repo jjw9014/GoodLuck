@@ -46,5 +46,20 @@
              <generatedKey column="ID" sqlStatement="select REPLACE(UUID(),'-','') FROM dual" type="pre" identity="false" />
          </table>
 
+         <table tableName="question"
+                enableInsert="true" enableCountByExample="true"
+                enableSelectByPrimaryKey="true" enableSelectByExample="true"
+                enableUpdateByPrimaryKey="true" enableUpdateByExample="true"
+                enableDeleteByPrimaryKey="true" enableDeleteByExample="true">
+         </table>
+
+         <table tableName="tuser"
+                enableInsert="true" enableCountByExample="true"
+                enableSelectByPrimaryKey="true" enableSelectByExample="true"
+                enableUpdateByPrimaryKey="true" enableUpdateByExample="true"
+                enableDeleteByPrimaryKey="true" enableDeleteByExample="true">
+             <generatedKey column="ID" sqlStatement="select REPLACE(UUID(),'-','') FROM dual" type="pre" identity="false" />
+         </table>
+
      </context>
  </generatorConfiguration>
