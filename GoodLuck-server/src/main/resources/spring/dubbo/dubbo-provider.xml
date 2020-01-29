@@ -10,5 +10,5 @@
 
     <dubbo:protocol name="${spring.dubbo.protocol.name}" host="${server.address}"  port="${spring.dubbo.protocol.port}" threads="${spring.dubbo.protocol.threads}"/>
 
-
+    <dubbo:service interface="com.help.api.SuggestFacade" ref="suggestFacade" timeout="3000" retries="0"/>
 </beans>

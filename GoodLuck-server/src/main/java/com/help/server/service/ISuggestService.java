@@ -8,4 +8,6 @@ public interface ISuggestService {
     public int submit(Suggest suggest);
 
     public List<Suggest> list(int pageSize, int pageNo);
+
+    public int count();
 }

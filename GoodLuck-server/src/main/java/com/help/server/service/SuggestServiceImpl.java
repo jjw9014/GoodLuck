@@ -33,4 +33,12 @@ public class SuggestServiceImpl implements ISuggestService {
 
         return list;
     }
+
+    @Override
+    public int count() {
+        SuggestExample example = new SuggestExample();
+        example.createCriteria();
+
+        return suggestMapper.countByExample(example);
+    }
 }
