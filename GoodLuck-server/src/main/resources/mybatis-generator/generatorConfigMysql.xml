@@ -14,8 +14,8 @@
          </commentGenerator>
 
          <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                         connectionURL="jdbc:mysql://127.0.0.1:3306/goodluck?useUnicode=true&amp;characterEncoding=utf-8" userId="root"
-                         password="root"/>
+                         connectionURL="jdbc:mysql://47.92.212.173:3306/goodluck?useUnicode=true&amp;characterEncoding=utf-8" userId="root"
+                         password="r9xh*yH*DcEFQE"/>
 
          <javaTypeResolver >
              <property name="forceBigDecimals" value="false" />

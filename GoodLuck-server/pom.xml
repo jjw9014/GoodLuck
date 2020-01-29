@@ -150,29 +150,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-            <!-- 排除lettuce包，使用jedis代替-->
-            <exclusions>
-                <exclusion>
-                    <groupId>io.lettuce</groupId>
-                    <artifactId>lettuce-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- jedis -->
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
-        </dependency>
-        <!--连接池，redis依赖-->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
-            <version>${commons-pool2.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
@@ -193,16 +170,6 @@
                     <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-            <version>${version.spring.kafka}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-clients</artifactId>
-            <version>${version.kafka.client}</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -347,14 +314,6 @@
             <version>${version.powermock}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
 
     </dependencies>
 
@@ -376,18 +335,18 @@
             <id>uat</id>
             <properties>
                 <profile.active>uat</profile.active>
-                <mysql.jdbc.url>jdbc:mysql://127.0.0.1:3306/goodluck?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</mysql.jdbc.url>
+                <mysql.jdbc.url>jdbc:mysql://47.92.212.173:3306/goodluck?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</mysql.jdbc.url>
                 <mysql.jdbc.username>root</mysql.jdbc.username>
-                <mysql.jdbc.password>root</mysql.jdbc.password>
+                <mysql.jdbc.password>r9xh*yH*DcEFQE</mysql.jdbc.password>
             </properties>
         </profile>
         <profile>
             <id>prd</id>
             <properties>
                 <profile.active>prd</profile.active>
-                <mysql.jdbc.url>jdbc:mysql://127.0.0.1:3306/goodluck?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</mysql.jdbc.url>
+                <mysql.jdbc.url>jdbc:mysql://62.234.187.29:3306/mysql?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</mysql.jdbc.url>
                 <mysql.jdbc.username>root</mysql.jdbc.username>
-                <mysql.jdbc.password>root</mysql.jdbc.password>
+                <mysql.jdbc.password>HvMf2o58&amp;R123D</mysql.jdbc.password>
             </properties>
         </profile>
 
