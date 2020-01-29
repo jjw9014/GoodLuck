@@ -4,23 +4,15 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
     <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 
-    <property name="LOG_HOME" value="/app/applogs/cabinet-ctrl-server"/>
+    <property name="LOG_HOME" value="/app/applogs/GoodLuck-server"/>
 
-    <!-- 注册不可见分隔符转换器 -->
-    <conversionRule conversionWord="sep" converterClass="com.fcbox.tibet.log.format.SeparatorConvert"/>
-    <!-- 注册日志内容替换换行符转换器 -->
-    <conversionRule conversionWord="msgToo" converterClass="com.fcbox.tibet.log.format.LogMessageConvert"/>
-    <!-- 注册异常信息转换器 -->
-    <conversionRule conversionWord="exToo" converterClass="com.fcbox.tibet.log.format.FcboxThrowableProxyConverter"/>
-
-    <appender name="fcbox_ctrl_log"
+    <appender name="goodluck_log"
         class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${LOG_HOME}/info.log</File>
          <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
              <charset>UTF-8</charset>
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-             <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%-5level] [%logger:%L] %msg%n</pattern>-->
-             <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %sep[%thread] %sep%p %sep%c.%M \(%F:%L\) %sep[TxId : %X{PtxId} , SpanId : %X{PspanId}] %sep%msgToo%exToo%n</Pattern>
+             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%-5level] [%logger:%L] %msg%n</pattern>
          </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>DEBUG</level>
@@ -30,13 +22,13 @@
         </rollingPolicy>
     </appender>
 
-    <appender name="fcbox_ctrl_error_log"
+    <appender name="goodluck_error_log"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${LOG_HOME}/error.log</File>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <charset>UTF-8</charset>
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern><Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %sep[%thread] %sep%p %sep%c{10}.%M \(%F:%L\) %sep[TxId : %X{PtxId} , SpanId : %X{PspanId}] %sep%msgToo%exToo%n</Pattern></pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%-5level] [%logger:%L] %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
@@ -46,156 +38,6 @@
         </rollingPolicy>
     </appender>
 
-    <appender name="fcbox_ctrl_warn_log"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/warn.log</File>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <charset>UTF-8</charset>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern><Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %sep[%thread] %sep%p %sep%c{10}.%M \(%F:%L\) %sep[TxId : %X{PtxId} , SpanId : %X{PspanId}] %sep%msgToo%exToo%n</Pattern></pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>WARN</level>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${LOG_HOME}/warn.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-    </appender>
-
-    <appender name="fcbox_ctrl_manual_log"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/manual.log</File>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <charset>UTF-8</charset>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern><Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %sep[%thread] %sep%p %sep%c{10}.%M \(%F:%L\) %sep[TxId : %X{PtxId} , SpanId : %X{PspanId}] %sep%msgToo%exToo%n</Pattern></pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${LOG_HOME}/manual.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-    </appender>
-
-    <appender name="fcbox_ctrl_req_push_log"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/kafka/ctrl/ctrlReqPush.log</File>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <charset>UTF-8</charset>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <!-- kafka消费日志不输出日志级别、logger -->
-            <pattern><Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %sep[%thread] %sep%p %sep%c{10}.%M \(%F:%L\) %sep[TxId : %X{PtxId} , SpanId : %X{PspanId}] %sep%msgToo%exToo%n</Pattern></pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${LOG_HOME}/kafka/ctrl/ctrlReqPush.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-    </appender>
-
-    <appender name="fcbox_ctrl_req_poll_log"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/kafka/ctrl/ctrlReqPoll.log</File>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <charset>UTF-8</charset>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <!-- kafka消费日志不输出日志级别、logger -->
-            <pattern><Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %sep[%thread] %sep%p %sep%c{10}.%M \(%F:%L\) %sep[TxId : %X{PtxId} , SpanId : %X{PspanId}] %sep%msgToo%exToo%n</Pattern></pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${LOG_HOME}/kafka/ctrl/ctrlReqPoll.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-    </appender>
-
-    <appender name="fcbox_ctrl_report_push_log"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/kafka/ctrl/ctrlReportPush.log</File>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <charset>UTF-8</charset>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <!-- kafka消费日志不输出日志级别、logger -->
-            <pattern><Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %sep[%thread] %sep%p %sep%c{10}.%M \(%F:%L\) %sep[TxId : %X{PtxId} , SpanId : %X{PspanId}] %sep%msgToo%exToo%n</Pattern></pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${LOG_HOME}/kafka/ctrl/ctrlReportPush.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-    </appender>
-
-    <appender name="fcbox_ctrl_report_poll_log"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/kafka/ctrl/ctrlReportPoll.log</File>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <charset>UTF-8</charset>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <!-- kafka消费日志不输出日志级别、logger -->
-            <pattern><Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %sep[%thread] %sep%p %sep%c{10}.%M \(%F:%L\) %sep[TxId : %X{PtxId} , SpanId : %X{PspanId}] %sep%msgToo%exToo%n</Pattern></pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${LOG_HOME}/kafka/ctrl/ctrlReportPoll.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-    </appender>
-
-    <appender name="fcbox_ctrl_delay_poll_log"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/kafka/ctrl/ctrlDelayPoll.log</File>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <charset>UTF-8</charset>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <!-- kafka消费日志不输出日志级别、logger -->
-            <pattern><Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %sep[%thread] %sep%p %sep%c{10}.%M \(%F:%L\) %sep[TxId : %X{PtxId} , SpanId : %X{PspanId}] %sep%msgToo%exToo%n</Pattern></pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${LOG_HOME}/kafka/ctrl/ctrlDelayPoll.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-    </appender>
-
-    <appender name="fcbox_ctrl_resp_push_log"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/kafka/ctrl/ctrlRespPush.log</File>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <charset>UTF-8</charset>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <!-- kafka消费日志不输出日志级别、logger -->
-            <pattern><Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %sep[%thread] %sep%p %sep%c{10}.%M \(%F:%L\) %sep[TxId : %X{PtxId} , SpanId : %X{PspanId}] %sep%msgToo%exToo%n</Pattern></pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${LOG_HOME}/kafka/ctrl/ctrlRespPush.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-    </appender>
-
-    <appender name="fcbox_ctrl_mongo_push_log"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/kafka/ctrl/ctrlMongoPush.log</File>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <charset>UTF-8</charset>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <!-- kafka消费日志不输出日志级别、logger -->
-            <pattern><Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %sep[%thread] %sep%p %sep%c{10}.%M \(%F:%L\) %sep[TxId : %X{PtxId} , SpanId : %X{PspanId}] %sep%msgToo%exToo%n</Pattern></pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${LOG_HOME}/kafka/ctrl/ctrlMongoPush.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-    </appender>
 
     <!-- ${catalina.base} -->
      <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -208,84 +50,9 @@
     <logger name="org.apache.zookeeper" level="INFO" />
     <logger name="com.alibaba" level="INFO" />
 
-    <!-- 开发环境 -->
-    <springProfile name="local">
-        <!--单独的kafka消息日志记录-->
-        <logger name="com.help.resourcepool.ctrl.log.CtrlReqPushLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_req_push_log" />
-        </logger>
-        <logger name="com.help.resourcepool.ctrl.log.CtrlReqPollLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_req_poll_log" />
-        </logger>
-        <logger name="com.help.resourcepool.ctrl.log.CtrlReportPushLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_report_push_log" />
-        </logger>
-        <logger name="com.help.resourcepool.ctrl.log.CtrlReportPollLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_report_poll_log" />
-        </logger>
-        <logger name="com.help.resourcepool.ctrl.log.CtrlRespPushLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_resp_push_log" />
-        </logger>
-        <logger name="com.help.resourcepool.ctrl.log.CtrlMongoPushLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_mongo_push_log" />
-        </logger>
-        <logger name="com.help.resourcepool.common.util.ManualLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="fcbox_ctrl_manual_log" />
-        </logger>
-        <root level="INFO">
-            <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="fcbox_ctrl_log"/>
-            <appender-ref ref="fcbox_ctrl_error_log"/>
-            <appender-ref ref="fcbox_ctrl_warn_log"/>
-        </root>
-    </springProfile>
-    <springProfile name="rd,uat,uat2,uat3,uat4,stg,prd">
-        <!--单独的kafka消息日志记录-->
-        <logger name="com.help.resourcepool.ctrl.log.CtrlReqPushLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_req_push_log" />
-        </logger>
-        <logger name="com.help.resourcepool.ctrl.log.CtrlReqPollLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_req_poll_log" />
-        </logger>
-        <logger name="com.help.resourcepool.ctrl.log.CtrlReportPushLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_report_push_log" />
-        </logger>
-        <logger name="com.help.resourcepool.ctrl.log.CtrlReportPollLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_report_poll_log" />
-        </logger>
-        <logger name="com.help.resourcepool.ctrl.log.CtrlRespPushLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_resp_push_log" />
-        </logger>
-        <logger name="com.help.resourcepool.ctrl.log.CtrlMongoPushLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_mongo_push_log" />
-        </logger>
-        <logger name="com.help.resourcepool.common.util.ManualLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_manual_log" />
-        </logger>
-        <logger name="com.help.resourcepool.ctrl.log.CtrlDelayPollLog" additivity="false">
-            <level value="INFO" />
-            <appender-ref ref="fcbox_ctrl_delay_poll_log" />
-        </logger>
-        <root level="INFO">
-            <appender-ref ref="fcbox_ctrl_log"/>
-            <appender-ref ref="fcbox_ctrl_error_log"/>
-            <appender-ref ref="fcbox_ctrl_warn_log"/>
-        </root>
-    </springProfile>
+    <root level="INFO">
+        <appender-ref ref="goodluck_log"/>
+        <appender-ref ref="goodluck_error_log"/>
+    </root>
 
 </configuration>
