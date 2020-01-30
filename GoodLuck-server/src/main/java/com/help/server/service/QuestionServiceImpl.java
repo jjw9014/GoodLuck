@@ -70,8 +70,11 @@ public class QuestionServiceImpl implements IQuestionService {
         if (!StringUtils.isEmpty(pageParam.getTag())) {
             criteria.andTagLike("%" + pageParam.getTag() + "%");
         }
-        if (pageParam.getPubTime() != null) {
-            criteria.andPubTimeEqualTo(pageParam.getPubTime());
+        if (!StringUtils.isEmpty(pageParam.getPubTimeStart())) {
+            criteria.andPubTimeGreaterThanOrEqualTo(DateUtils.parseDate(pageParam.getPubTimeStart()));
+        }
+        if (!StringUtils.isEmpty(pageParam.getPubTimeEnd())) {
+            criteria.andPubTimeLessThan(DateUtils.parseDate(pageParam.getPubTimeEnd()));
         }
         if (pageParam.getStarsMin() > 0) {
             criteria.andStarsGreaterThanOrEqualTo(pageParam.getStarsMin());

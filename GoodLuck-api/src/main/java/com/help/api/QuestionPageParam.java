@@ -1,7 +1,6 @@
 package com.help.api;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 public class QuestionPageParam implements Serializable {
@@ -9,7 +8,9 @@ public class QuestionPageParam implements Serializable {
 
     private String tag;
 
-    private Date pubTime;
+    private String pubTimeStart;
+
+    private String pubTimeEnd;
 
     private int starsMin;
 
@@ -49,12 +50,20 @@ public class QuestionPageParam implements Serializable {
         this.tag = tag;
     }
 
-    public Date getPubTime() {
-        return pubTime;
+    public String getPubTimeStart() {
+        return pubTimeStart;
     }
 
-    public void setPubTime(Date pubTime) {
-        this.pubTime = pubTime;
+    public void setPubTimeStart(String pubTimeStart) {
+        this.pubTimeStart = pubTimeStart;
+    }
+
+    public String getPubTimeEnd() {
+        return pubTimeEnd;
+    }
+
+    public void setPubTimeEnd(String pubTimeEnd) {
+        this.pubTimeEnd = pubTimeEnd;
     }
 
     public int getStarsMin() {
