@@ -21,6 +21,8 @@ public class QuestionUpdateParam implements Serializable {
 
     private String mobile;
 
+    private String wxNumber;
+
     public String getNumber() {
         return number;
     }
@@ -83,5 +85,13 @@ public class QuestionUpdateParam implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getWxNumber() {
+        return wxNumber;
+    }
+
+    public void setWxNumber(String wxNumber) {
+        this.wxNumber = wxNumber;
     }
 }

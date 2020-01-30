@@ -34,6 +34,8 @@ public class QuestionParam implements Serializable {
 
     private Integer stars;
 
+    private String wxNumber;
+
     private static final long serialVersionUID = 1L;
 
     public String getNumber() {
@@ -154,5 +156,13 @@ public class QuestionParam implements Serializable {
 
     public void setStars(Integer stars) {
         this.stars = stars;
+    }
+
+    public String getWxNumber() {
+        return wxNumber;
+    }
+
+    public void setWxNumber(String wxNumber) {
+        this.wxNumber = wxNumber;
     }
 }

@@ -1115,6 +1115,76 @@ public class QuestionExample {
             return (Criteria) this;
         }
 
+        public Criteria andWxNumberIsNull() {
+            addCriterion("wx_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberIsNotNull() {
+            addCriterion("wx_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberEqualTo(String value) {
+            addCriterion("wx_number =", value, "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberNotEqualTo(String value) {
+            addCriterion("wx_number <>", value, "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberGreaterThan(String value) {
+            addCriterion("wx_number >", value, "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("wx_number >=", value, "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberLessThan(String value) {
+            addCriterion("wx_number <", value, "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberLessThanOrEqualTo(String value) {
+            addCriterion("wx_number <=", value, "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberLike(String value) {
+            addCriterion("wx_number like", value, "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberNotLike(String value) {
+            addCriterion("wx_number not like", value, "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberIn(List<String> values) {
+            addCriterion("wx_number in", values, "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberNotIn(List<String> values) {
+            addCriterion("wx_number not in", values, "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberBetween(String value1, String value2) {
+            addCriterion("wx_number between", value1, value2, "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberNotBetween(String value1, String value2) {
+            addCriterion("wx_number not between", value1, value2, "wxNumber");
+            return (Criteria) this;
+        }
+
         public Criteria andNumberLikeInsensitive(String value) {
             addCriterion("upper(number) like", value.toUpperCase(), "number");
             return (Criteria) this;
@@ -1167,6 +1237,11 @@ public class QuestionExample {
 
         public Criteria andMobileLikeInsensitive(String value) {
             addCriterion("upper(mobile) like", value.toUpperCase(), "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNumberLikeInsensitive(String value) {
+            addCriterion("upper(wx_number) like", value.toUpperCase(), "wxNumber");
             return (Criteria) this;
         }
     }
