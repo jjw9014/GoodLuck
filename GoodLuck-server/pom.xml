@@ -344,7 +344,7 @@
             <id>prd</id>
             <properties>
                 <profile.active>prd</profile.active>
-                <mysql.jdbc.url>jdbc:mysql://62.234.187.29:3306/mysql?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</mysql.jdbc.url>
+                <mysql.jdbc.url>jdbc:mysql://62.234.187.29:3306/goodluck?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</mysql.jdbc.url>
                 <mysql.jdbc.username>root</mysql.jdbc.username>
                 <mysql.jdbc.password>HvMf2o58&amp;R123D</mysql.jdbc.password>
             </properties>

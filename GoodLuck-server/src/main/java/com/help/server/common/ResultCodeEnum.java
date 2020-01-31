@@ -3,6 +3,13 @@ package com.help.server.common;
 public enum ResultCodeEnum {
     SUCCESS("200", "成功"),
     ERROR("500", "系统错误"),
+
+    AREA_PROVINCE_CODE_IS_NULL("001", "省编码为空"),
+    AREA_CITY_CODE_IS_NULL("002", "市编码为空"),
+    AREA_CODE_IS_NULL("003", "区域编码为空"),
+    AREA_NAME_IS_NULL("004", "区域名称为空"),
+    AREA_NOT_EXIST("005", "区域不存在"),
+
     SUGGUEST_USER_ID_IS_NULL("101", "提交反馈未绑定用户"),
     SUGGUEST_REMARK_IS_NULL("102", "提交反馈填写为空"),
 
@@ -12,6 +19,7 @@ public enum ResultCodeEnum {
     QUESTION_NUMBER_IS_NULL("204", "问题编号为空"),
     QUESTION_NUMBER_NOT_EXIST("205", "问题编号不存在"),
     QUESTION_AUDIT_STATE_IS_NULL("206", "审核状态为空"),
+    QUESTION_USER_IS_NULL("207", "用户信息为空"),
     ;
     private String code;
     private String message;

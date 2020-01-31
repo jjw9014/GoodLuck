@@ -12,4 +12,6 @@
 
     <dubbo:service interface="com.help.api.SuggestFacade" ref="suggestFacade" timeout="3000" retries="0"/>
     <dubbo:service interface="com.help.api.QuestionFacade" ref="questionFacade" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.help.api.AreaFacade" ref="areaFacade" timeout="3000" retries="0"/>
+
 </beans>

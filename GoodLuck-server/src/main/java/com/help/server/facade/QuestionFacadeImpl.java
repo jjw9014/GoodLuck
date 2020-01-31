@@ -29,7 +29,7 @@ public class QuestionFacadeImpl implements QuestionFacade {
     public ResultDTO focus(String number, String userId) {
         // todo 防刷逻辑待完善
         CommonUtils.assertEmptyField(number, ResultCodeEnum.QUESTION_NUMBER_IS_NULL);
-        CommonUtils.assertEmptyField(userId, ResultCodeEnum.QUESTION_PUB_USER_IS_NULL);
+        CommonUtils.assertEmptyField(userId, ResultCodeEnum.QUESTION_USER_IS_NULL);
 
         QuestionParam param = new QuestionParam();
         param.setNumber(number);
@@ -56,7 +56,7 @@ public class QuestionFacadeImpl implements QuestionFacade {
     @Override
     public ResultDTO resolve(String number, String userId) {
         CommonUtils.assertEmptyField(number, ResultCodeEnum.QUESTION_NUMBER_IS_NULL);
-        CommonUtils.assertEmptyField(userId, ResultCodeEnum.QUESTION_PUB_USER_IS_NULL);
+        CommonUtils.assertEmptyField(userId, ResultCodeEnum.QUESTION_USER_IS_NULL);
 
         QuestionParam param = new QuestionParam();
         param.setNumber(number);
@@ -69,7 +69,7 @@ public class QuestionFacadeImpl implements QuestionFacade {
     @Override
     public ResultDTO audit(String number, String userId, String auditState) {
         CommonUtils.assertEmptyField(number, ResultCodeEnum.QUESTION_NUMBER_IS_NULL);
-        CommonUtils.assertEmptyField(userId, ResultCodeEnum.QUESTION_PUB_USER_IS_NULL);
+        CommonUtils.assertEmptyField(userId, ResultCodeEnum.QUESTION_USER_IS_NULL);
         CommonUtils.assertEmptyField(auditState, ResultCodeEnum.QUESTION_AUDIT_STATE_IS_NULL);
 
         QuestionParam param = new QuestionParam();
