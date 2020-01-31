@@ -18,7 +18,7 @@ public class SuggestController {
     @Autowired
     private SuggestFacade suggestFacade;
 
-    // http://127.0.0.1:8080/suggest/submit?userId=qijirensheng&remark=%E5%95%8A%E5%95%8A%E5%95%8A&mobile=13265479740
+    // http://127.0.0.1:9090/suggest/submit?userId=qijirensheng&remark=%E5%95%8A%E5%95%8A%E5%95%8A&mobile=13265479740
     @RequestMapping(value="/submit")
     @ResponseBody
     public String submit(SuggestParam param) {
@@ -26,7 +26,7 @@ public class SuggestController {
         return JSON.toJSONString(suggestFacade.submit(param));
     }
 
-    // http://127.0.0.1:8080/suggest/list?pageSize=10&pageNo=1
+    // http://127.0.0.1:9090/suggest/list?pageSize=10&pageNo=1
     @RequestMapping(value="/list")
     @ResponseBody
     public String list(int pageSize, int pageNo) {
