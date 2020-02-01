@@ -7,7 +7,7 @@ public enum TagEnum {
     HOME_DIFFICULT("D", "回家困难"),
     MEDICAL_DIFFICULT("E", "就医困难"),
     SHORT_MASK("F", "个人缺口罩"),
-    OTHER("0", "其他"),
+    OTHER("Z", "其他"),
     ;
 
     private String code;
