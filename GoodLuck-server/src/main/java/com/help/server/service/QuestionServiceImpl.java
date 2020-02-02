@@ -54,14 +54,16 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Override
     public List<Question> list(QuestionPageParam pageParam) {
-        pageParam.setPageSize(pageParam.getPageSize()<10 ? 10 : pageParam.getPageSize());
+        pageParam.setPageSize(pageParam.getPageSize()<0 ? 10 : pageParam.getPageSize());
         pageParam.setPageNo(pageParam.getPageNo()<0 ? 1 : pageParam.getPageNo());
+
+        QuestionExample example = getQuestionExample(pageParam);
 
         //注意此方法后面紧跟着mybatis查询方法
         PageHelper.startPage(pageParam.getPageNo(), pageParam.getPageSize());
-        QuestionExample example = getQuestionExample(pageParam);
+        List<Question> list = questionMapper.selectByExample(example);
 
-        return questionMapper.selectByExample(example);
+        return list;
     }
 
     private QuestionExample getQuestionExample(QuestionPageParam pageParam) {

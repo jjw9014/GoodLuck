@@ -25,10 +25,11 @@ public class SuggestServiceImpl implements ISuggestService {
 
     @Override
     public List<Suggest> list(int pageSize, int pageNo) {
-        //注意此方法后面紧跟着mybatis查询方法
-        PageHelper.startPage(pageNo, pageSize);
         SuggestExample example = new SuggestExample();
         example.createCriteria();
+
+        //注意此方法后面紧跟着mybatis查询方法
+        PageHelper.startPage(pageNo, pageSize);
         List<Suggest> list = suggestMapper.selectByExample(example);
 
         return list;
