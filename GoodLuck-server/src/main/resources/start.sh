@@ -4,10 +4,10 @@ JAR_NAME="`pwd`/GoodLuck-server.jar"
 echo --------------------------start/restart begin----------------------------------------
 echo ----jar is $JAR_NAME
 
-# 日志目录
-DIR_LOG="`pwd`/logs"
-if [ ! -d $DIR_LOG ]; then
-    mkdir $DIR_LOG
+# dump目录
+DIR_DUMP="`pwd`/dump"
+if [ ! -d $DIR_DUMP ]; then
+    mkdir $DIR_DUMP
 fi
 
 PID=$(ps -ef | grep $JAR_NAME | grep -v grep | awk '{ print $2 }')
@@ -40,7 +40,7 @@ if [[ $YES_OR_NO = 'Y' ]]; then
     echo ----pwd is $CURRENT_PATH
     echo ----now will start up the Application
 
-    nohup java -Xms512M -Xmx512M  -XX:PermSize=128M -XX:MaxPermSize=128M -XX:+UseParallelOldGC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/root/dump -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:dump/heap_trace.txt  -jar $JAR_NAME > logs/console.out 2>&1 &
+    nohup java -Xms512M -Xmx512M  -XX:PermSize=128M -XX:MaxPermSize=128M -XX:+UseParallelOldGC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$DIR_DUMP -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:dump/heap_trace.txt  -jar $JAR_NAME > console.out 2>&1 &
 
     sleep 1s
 
