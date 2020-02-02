@@ -1,6 +1,6 @@
 package com.help.server.service;
 
-import com.help.api.ResultDTO;
+import com.help.server.model.Tuser;
 
 /**
  * 用户管理接口
@@ -11,18 +11,23 @@ import com.help.api.ResultDTO;
 public interface TuserService {
 
     /**
-     * 登录
-     * @param wxId
+     * 获取用户信息
+     * @param openId
      * @return
      */
-    ResultDTO login(String wxId);
+    Tuser getUserInfoByOpenId(String openId);
+
+    /**
+     * 添加微信登录用户
+     * @param tuser
+     * @return
+     */
+    boolean addWxUserInfo(Tuser tuser);
 
     /**
      * 编辑用户信息
-     * @param wxId 微信id
-     * @param mobile 手机号
-     * @param name 姓名
+     * @param tuser 用户信息
      * @return
      */
-    ResultDTO editUserInfo(String wxId, String mobile, String name);
+    boolean editUserInfo(Tuser tuser);
 }

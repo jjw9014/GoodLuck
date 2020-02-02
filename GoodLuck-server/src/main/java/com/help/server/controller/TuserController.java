@@ -1,13 +1,15 @@
 package com.help.server.controller;
 
 import com.help.api.ResultDTO;
+import com.help.server.common.AuthUtil;
+import com.help.server.common.ResultHandler;
+import com.help.server.model.Tuser;
 import com.help.server.service.TuserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -20,30 +22,46 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/user/")
 public class TuserController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TuserController.class);
-
     @Autowired
     private TuserService tuserService;
 
     /**
-     * 用户登录
-     * @param wxId 微信id
+     * 获取用户信息
+     * @param openId
      * @return
      */
-    @RequestMapping(value = "/login")
-    public ResultDTO login(String wxId) {
-        return tuserService.login(wxId);
+    @RequestMapping(value = "/get")
+    public ResultDTO get(String openId, HttpServletRequest request) {
+        if(openId == null){
+            openId = AuthUtil.getAuthOpenIdFromCookie(request);
+        }
+        if(openId != null){
+            Tuser tuser = tuserService.getUserInfoByOpenId(openId);
+            if(tuser != null){
+                return ResultHandler.handleSuccess(tuser);
+            }else{
+                return ResultHandler.createErrorResult("获取用户信息失败");
+            }
+        }else{
+            return ResultHandler.createErrorResult("缺少用户标识信息，无法获取");
+        }
+
     }
 
     /**
      * 用户信息修改
-     * @param wxId 微信id
-     * @param mobile 手机号
-     * @param name 姓名
+     * @param user 用户信息
      * @return
      */
     @RequestMapping(value = "/edit")
-    public ResultDTO editUserInfo(String wxId,String mobile, String name) {
-        return tuserService.editUserInfo(wxId,mobile,name);
+    public ResultDTO editUserInfo(Tuser user) {
+        boolean result = tuserService.editUserInfo(user);
+        if(result){
+            return ResultHandler.handleSuccess("修改用户信息成功",null);
+        }else{
+            return ResultHandler.createErrorResult("修改用户信息失败，请稍后重试");
+        }
     }
+
+
 }

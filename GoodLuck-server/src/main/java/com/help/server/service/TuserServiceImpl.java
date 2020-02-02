@@ -1,11 +1,8 @@
 package com.help.server.service;
 
-import com.help.api.ResultDTO;
-import com.help.server.common.ResultHandler;
 import com.help.server.dao.TuserMapper;
 import com.help.server.model.Tuser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,30 +15,45 @@ import java.util.Date;
  * @Version 1.0
  **/
 @Service
+@Slf4j
 public class TuserServiceImpl implements TuserService{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TuserServiceImpl.class);
 
     @Autowired
     private TuserMapper tuserMapper;
 
+
     @Override
-    public ResultDTO login(String wxId) {
-        return ResultHandler.handleSuccess(null);
+    public Tuser getUserInfoByOpenId(String openId) {
+        return tuserMapper.selectByPrimaryKey(openId);
     }
 
     @Override
-    public ResultDTO editUserInfo(String wxId, String mobile, String name) {
-        Tuser record = new Tuser();
-        record.setId(wxId);
-        record.setMobile(mobile);
-        record.setName(name);
-        record.setLastUpdateTime(new Date());
-        Tuser tuser = tuserMapper.selectByPrimaryKey(wxId);
-        if(tuser != null){
-            return ResultHandler.handleSuccess(tuserMapper.updateByPrimaryKeySelective(record));
+    public boolean addWxUserInfo(Tuser tuser) {
+        tuser.setCreateTime(new Date());
+        String openId = tuser.getId();
+        if(openId != null){
+            return false;
         }else{
-            return ResultHandler.handleError("该用户不存在",null);
+            Tuser user = tuserMapper.selectByPrimaryKey(openId);
+            if(user != null){
+                log.info("用户名已存在，不可重复添加");
+                return false;
+            }else{
+                return tuserMapper.insertSelective(tuser) > 0 ? true : false;
+            }
+        }
+    }
+
+    @Override
+    public boolean editUserInfo(Tuser tuser) {
+        tuser.setLastUpdateTime(new Date());
+        int updateNum= tuserMapper.updateByPrimaryKeySelective(tuser);
+        if(updateNum > 0){
+            return true;
+        }else{
+            log.info("没有该用户");
+            return false;
         }
     }
 }
