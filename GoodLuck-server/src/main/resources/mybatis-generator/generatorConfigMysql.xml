@@ -38,7 +38,7 @@
          </javaClientGenerator>
  
 
-         <table tableName="suggest"
+<!--         <table tableName="suggest"
                  enableInsert="true" enableCountByExample="true"
                  enableSelectByPrimaryKey="true" enableSelectByExample="true"
                  enableUpdateByPrimaryKey="true" enableUpdateByExample="true"
@@ -51,7 +51,7 @@
                 enableSelectByPrimaryKey="true" enableSelectByExample="true"
                 enableUpdateByPrimaryKey="true" enableUpdateByExample="true"
                 enableDeleteByPrimaryKey="true" enableDeleteByExample="true">
-         </table>
+         </table>-->
 
          <table tableName="tuser"
                 enableInsert="true" enableCountByExample="true"
@@ -61,12 +61,12 @@
              <generatedKey column="ID" sqlStatement="select REPLACE(UUID(),'-','') FROM dual" type="pre" identity="false" />
          </table>
 
-         <table tableName="area"
+<!--         <table tableName="area"
                 enableInsert="true" enableCountByExample="true"
                 enableSelectByPrimaryKey="true" enableSelectByExample="true"
                 enableUpdateByPrimaryKey="true" enableUpdateByExample="true"
                 enableDeleteByPrimaryKey="true" enableDeleteByExample="true">
-         </table>
+         </table>-->
 
      </context>
  </generatorConfiguration>
