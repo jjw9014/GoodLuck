@@ -7,7 +7,7 @@ import java.util.List;
 public interface ISuggestService {
     public int submit(Suggest suggest);
 
-    public List<Suggest> list(int pageSize, int pageNo);
+    public List<Suggest> list(Integer pageSize, Integer pageNo);
 
     public int count();
 }

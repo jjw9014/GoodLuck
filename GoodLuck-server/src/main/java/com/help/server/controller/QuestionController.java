@@ -2,10 +2,7 @@ package com.help.server.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.help.api.*;
-import com.help.server.common.AuditStateEnum;
-import com.help.server.common.ResultHandler;
-import com.help.server.common.StateEnum;
-import com.help.server.common.TagEnum;
+import com.help.server.common.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +34,11 @@ public class QuestionController {
     // http://127.0.0.1:9090/question/newest?pageSize=10&pageNo=1
     @RequestMapping(value="/newest")
     @ResponseBody
-    public String newest(int pageSize, int pageNo) {
+    public String newest(Integer pageSize, Integer pageNo) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        pageSize = (Integer) GetParamsUtils.getValueIfNull(pageSize, paramMap.get("pageSize"), 10);
+        pageNo = (Integer) GetParamsUtils.getValueIfNull(pageNo, paramMap.get("pageNo"), 1);
+
         QuestionPageParam pageParam = new QuestionPageParam();
         pageParam.setPageSize(pageSize);
         pageParam.setPageNo(pageNo);
@@ -49,7 +50,11 @@ public class QuestionController {
     // http://127.0.0.1:9090/question/concerned?pageSize=10&pageNo=1
     @RequestMapping(value="/concerned")
     @ResponseBody
-    public String concerned(int pageSize, int pageNo) {
+    public String concerned(Integer pageSize, Integer pageNo) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        pageSize = (Integer) GetParamsUtils.getValueIfNull(pageSize, paramMap.get("pageSize"), 10);
+        pageNo = (Integer) GetParamsUtils.getValueIfNull(pageNo, paramMap.get("pageNo"), 1);
+
         QuestionPageParam pageParam = new QuestionPageParam();
         pageParam.setPageSize(pageSize);
         pageParam.setPageNo(pageNo);
@@ -61,7 +66,11 @@ public class QuestionController {
     // http://127.0.0.1:9090/question/auditing?pageSize=10&pageNo=1
     @RequestMapping(value="/auditing")
     @ResponseBody
-    public String auditing(int pageSize, int pageNo) {
+    public String auditing(Integer pageSize, Integer pageNo) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        pageSize = (Integer) GetParamsUtils.getValueIfNull(pageSize, paramMap.get("pageSize"), 10);
+        pageNo = (Integer) GetParamsUtils.getValueIfNull(pageNo, paramMap.get("pageNo"), 1);
+
         QuestionPageParam pageParam = new QuestionPageParam();
         pageParam.setPageSize(pageSize);
         pageParam.setPageNo(pageNo);
@@ -73,7 +82,11 @@ public class QuestionController {
     // http://127.0.0.1:9090/question/resolved?pageSize=10&pageNo=1
     @RequestMapping(value="/resolved")
     @ResponseBody
-    public String resolved(int pageSize, int pageNo) {
+    public String resolved(Integer pageSize, Integer pageNo) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        pageSize = (Integer) GetParamsUtils.getValueIfNull(pageSize, paramMap.get("pageSize"), 10);
+        pageNo = (Integer) GetParamsUtils.getValueIfNull(pageNo, paramMap.get("pageNo"), 1);
+
         QuestionPageParam pageParam = new QuestionPageParam();
         pageParam.setPageSize(pageSize);
         pageParam.setPageNo(pageNo);
@@ -85,7 +98,11 @@ public class QuestionController {
     // http://127.0.0.1:9090/question/unresolved?pageSize=10&pageNo=1
     @RequestMapping(value="/unresolved")
     @ResponseBody
-    public String unresolved(int pageSize, int pageNo) {
+    public String unresolved(Integer pageSize, Integer pageNo) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        pageSize = (Integer) GetParamsUtils.getValueIfNull(pageSize, paramMap.get("pageSize"), 10);
+        pageNo = (Integer) GetParamsUtils.getValueIfNull(pageNo, paramMap.get("pageNo"), 1);
+
         QuestionPageParam pageParam = new QuestionPageParam();
         pageParam.setPageSize(pageSize);
         pageParam.setPageNo(pageNo);
@@ -99,6 +116,9 @@ public class QuestionController {
     @RequestMapping(value="/focus")
     @ResponseBody
     public String focus(String number, String userId) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        number = (String) GetParamsUtils.getValueIfNull(number, paramMap.get("number"));
+        userId = (String) GetParamsUtils.getValueIfNull(userId, paramMap.get("userId"));
 
         return JSON.toJSONString(questionFacade.focus(number, userId));
     }
@@ -107,6 +127,8 @@ public class QuestionController {
     @RequestMapping(value="/detail")
     @ResponseBody
     public String detail(String number) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        number = (String) GetParamsUtils.getValueIfNull(number, paramMap.get("number"));
 
         return JSON.toJSONString(questionFacade.info(number));
     }
@@ -114,7 +136,10 @@ public class QuestionController {
     // http://127.0.0.1:9090/question/edit?number=2020-01-28-000001&remark=修改
     @RequestMapping(value="/edit")
     @ResponseBody
-    public String edit(@RequestBody QuestionUpdateParam updateParam) {
+    public String edit(QuestionUpdateParam updateParam) {
+        QuestionUpdateParam postParam = GetParamsUtils.getParamsObject(QuestionUpdateParam.class);
+
+        updateParam = postParam==null?updateParam:postParam;
 
         return JSON.toJSONString(questionFacade.updateInfo(updateParam));
     }
@@ -122,22 +147,10 @@ public class QuestionController {
     // http://127.0.0.1:9090/question/pub?remark=买不到医用口罩&tag=A&pubUserId=chuanqirensheng&province=360000&city=361000&district=361025&street=招携镇&mobile=13265479740
     @RequestMapping(value="/pub")
     @ResponseBody
-    public String pub(@RequestBody QuestionParam param) {
+    public String pub(QuestionParam param) {
+        QuestionParam postParam = GetParamsUtils.getParamsObject(QuestionParam.class);
 
-        return JSON.toJSONString(questionFacade.pub(param));
-    }
-    // http://127.0.0.1:9090/question/edit?number=2020-01-28-000001&remark=修改
-    @RequestMapping(value="/editByGet")
-    @ResponseBody
-    public String editByGet(QuestionUpdateParam updateParam) {
-
-        return JSON.toJSONString(questionFacade.updateInfo(updateParam));
-    }
-
-    // http://127.0.0.1:9090/question/pub?remark=买不到医用口罩&tag=A&pubUserId=chuanqirensheng&province=360000&city=361000&district=361025&street=招携镇&mobile=13265479740
-    @RequestMapping(value="/pubByGet")
-    @ResponseBody
-    public String pubByGet(QuestionParam param) {
+        param = postParam==null?param:postParam;
 
         return JSON.toJSONString(questionFacade.pub(param));
     }
@@ -158,6 +171,9 @@ public class QuestionController {
     @RequestMapping(value="/audit")
     @ResponseBody
     public String audit(String number, String userId) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        number = (String) GetParamsUtils.getValueIfNull(number, paramMap.get("number"));
+        userId = (String) GetParamsUtils.getValueIfNull(userId, paramMap.get("userId"));
 
         return JSON.toJSONString(questionFacade.audit(number, userId, AuditStateEnum.AUIDTED.getCode()));
     }
@@ -166,6 +182,9 @@ public class QuestionController {
     @RequestMapping(value="/verify")
     @ResponseBody
     public String verify(String number, String userId) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        number = (String) GetParamsUtils.getValueIfNull(number, paramMap.get("number"));
+        userId = (String) GetParamsUtils.getValueIfNull(userId, paramMap.get("userId"));
 
         return JSON.toJSONString(questionFacade.audit(number, userId, AuditStateEnum.VERIFIED.getCode()));
     }
@@ -174,22 +193,20 @@ public class QuestionController {
     @RequestMapping(value="/resolve")
     @ResponseBody
     public String resolve(String number, String userId) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        number = (String) GetParamsUtils.getValueIfNull(number, paramMap.get("number"));
+        userId = (String) GetParamsUtils.getValueIfNull(userId, paramMap.get("userId"));
 
         return JSON.toJSONString(questionFacade.resolve(number, userId));
     }
 
     // http://127.0.0.1:9090/question/list?pageSize=10&pageNo=1&starsMin=3&starsMax=5&province=360000&city=361000&district=361025&street=%E6%9C%9B%E4%BB%99%E9%95%87&mobile=13265479740
-    @RequestMapping(value="/listByGet")
-    @ResponseBody
-    public String listByGet(QuestionPageParam param) {
-
-        return JSON.toJSONString(questionFacade.list(param));
-    }
-
-    // http://127.0.0.1:9090/question/list?pageSize=10&pageNo=1&starsMin=3&starsMax=5&province=360000&city=361000&district=361025&street=%E6%9C%9B%E4%BB%99%E9%95%87&mobile=13265479740
     @RequestMapping(value="/list")
     @ResponseBody
-    public String list(@RequestBody QuestionPageParam param) {
+    public String list(QuestionPageParam param) {
+        QuestionPageParam postParam = GetParamsUtils.getParamsObject(QuestionPageParam.class);
+
+        param = postParam==null?param:postParam;
 
         return JSON.toJSONString(questionFacade.list(param));
     }

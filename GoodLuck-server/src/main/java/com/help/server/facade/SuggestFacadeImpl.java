@@ -38,10 +38,10 @@ public class SuggestFacadeImpl implements SuggestFacade {
     }
 
     @Override
-    public ResultDTO<List> list(int pageSize, int pageNo) {
+    public ResultDTO<List> list(Integer pageSize, Integer pageNo) {
 
-        pageSize = pageSize<0 ? 10 : pageSize;
-        pageNo = pageNo<0 ? 1 : pageNo;
+        pageSize = (pageSize==null || pageSize<0) ? 10 : pageSize;
+        pageNo = (pageNo==null || pageNo<0) ? 1 : pageNo;
 
         int count = suggestService.count();
         List<Suggest> list = suggestService.list(pageSize, pageNo);

@@ -24,7 +24,7 @@ public class SuggestServiceImpl implements ISuggestService {
     }
 
     @Override
-    public List<Suggest> list(int pageSize, int pageNo) {
+    public List<Suggest> list(Integer pageSize, Integer pageNo) {
         SuggestExample example = new SuggestExample();
         example.createCriteria();
 
