@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.help.server.common.AuthUtil;
 import com.help.server.common.CommonConfigUtil;
 import com.help.server.common.JedisUtils;
+import com.help.server.common.LoginHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -33,26 +34,48 @@ public class WxAuthFilter extends OncePerRequestFilter {
 
 	private static final List<String> FILTER_URL_LIST = Arrays.asList(FILTER_URL);
 
+	private static final String[] SYS_UN_FILTER_URL = {"/sysUser/getPublicKey","/sysUser/login"};
+
+	private static final List<String>  SYS_UN_FILTER_URL_LIST  = Arrays.asList(SYS_UN_FILTER_URL);
+
+	private static final String SYS_LOGIN_URL = "/login";
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		// 请求的uri
 		String uri = request.getRequestURI();
-		if(FILTER_URL_LIST.contains(uri)){
-			String openId =  AuthUtil.getAuthOpenIdFromCookie(request);
-			if(openId != null){
-				Object user = JedisUtils.getObject(openId);
-				if(user != null){
+		//系统名称，若sysName为sys_goodluck，则为后端管理系统
+		String sysName = request.getParameter("system");
+		if(sysName != null &&  sysName.equals("sys_goodluck")){
+			if(SYS_UN_FILTER_URL_LIST.contains(uri)){
+				filterChain.doFilter(request, response);
+			}else{
+                // 执行过滤
+				if (!LoginHelper.isLogin()) {
+					response.sendRedirect(SYS_LOGIN_URL);
+				} else {
+					// 如果session中存在登录者实体，则继续
 					filterChain.doFilter(request, response);
+				}
+			}
+		}else{
+			if(FILTER_URL_LIST.contains(uri)){
+				String openId =  AuthUtil.getAuthOpenIdFromCookie(request);
+				if(openId != null){
+					Object user = JedisUtils.getObject(openId);
+					if(user != null){
+						filterChain.doFilter(request, response);
+					}else{
+						log.info("没有openid对应的记录，用户未授权,即将进入微信授权页面");
+						response.sendRedirect(AuthUtil.WX_AUTH_URL);
+					}
 				}else{
-					log.info("没有openid对应的记录，用户未授权,即将进入微信授权页面");
+					log.info("openid不存在，用户未授权,即将进入微信授权页面");
 					response.sendRedirect(AuthUtil.WX_AUTH_URL);
 				}
 			}else{
-				log.info("openid不存在，用户未授权,即将进入微信授权页面");
-				response.sendRedirect(AuthUtil.WX_AUTH_URL);
+				filterChain.doFilter(request, response);
 			}
-		}else{
-			filterChain.doFilter(request, response);
 		}
 	}
 

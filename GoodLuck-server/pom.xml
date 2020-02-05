@@ -358,6 +358,13 @@
             <artifactId>spring-context-support</artifactId>
             <version>5.0.6.RELEASE</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.60</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -379,7 +386,7 @@
             <id>uat</id>
             <properties>
                 <profile.active>uat</profile.active>
-                <mysql.jdbc.url>jdbc:mysql://148.70.141.88:3306/goodluck?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</mysql.jdbc.url>
+                <mysql.jdbc.url>jdbc:mysql://127.0.0.1:3306/goodluck?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</mysql.jdbc.url>
                 <mysql.jdbc.username>root</mysql.jdbc.username>
                 <mysql.jdbc.password>KsMsdo58&amp;R7y4G</mysql.jdbc.password>
             </properties>

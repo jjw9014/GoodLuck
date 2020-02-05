@@ -1,7 +1,7 @@
 
 package com.help.server.common;
 
-import com.help.server.model.Tuser;
+import com.help.server.model.SysUser;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -37,11 +37,11 @@ public class LoginHelper {
 	 * 
 	 * @return
 	 */
-	public static Tuser getLoginUser() {
+	public static SysUser getLoginUser() {
 		HttpSession session = getHttpSession();
-		Tuser user = new Tuser();
+		SysUser user = new SysUser();
 		if (session != null) {
-			user = (Tuser) session.getAttribute("user");
+			user = (SysUser) session.getAttribute("user");
 			if (user == null) {
 				return null;
 			}
@@ -60,7 +60,7 @@ public class LoginHelper {
 	 * 
 	 * @return
 	 */
-	public static void setLoginUser(Tuser user) {
+	public static void setLoginUser(SysUser user) {
 		HttpSession session = getHttpSession();
 		if (user != null) {
 			session.setAttribute("user", user);
@@ -75,7 +75,7 @@ public class LoginHelper {
 	 * 
 	 * @return
 	 */
-	public static String getUserId() {
+	public static int getUserId() {
 		return getLoginUser().getId();
 	}
 
