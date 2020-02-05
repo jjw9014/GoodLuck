@@ -36,6 +36,8 @@ public class QuestionPageParam implements Serializable {
 
     private String mobile;
 
+    private String wxNumber;
+
     private int pageSize;
 
     private int pageNo;
@@ -160,6 +162,14 @@ public class QuestionPageParam implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getWxNumber() {
+        return wxNumber;
+    }
+
+    public void setWxNumber(String wxNumber) {
+        this.wxNumber = wxNumber;
     }
 
     public int getPageSize() {

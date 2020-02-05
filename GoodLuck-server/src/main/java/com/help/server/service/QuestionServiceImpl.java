@@ -114,6 +114,9 @@ public class QuestionServiceImpl implements IQuestionService {
         if (!StringUtils.isEmpty(pageParam.getMobile())) {
             criteria.andMobileEqualTo(pageParam.getMobile());
         }
+        if (!StringUtils.isEmpty(pageParam.getWxNumber())) {
+            criteria.andWxNumberEqualTo(pageParam.getWxNumber());
+        }
 
         if (!StringUtils.isEmpty(pageParam.getOrderBy())) {
             example.setOrderByClause(pageParam.getOrderBy());
