@@ -5,10 +5,12 @@ import com.help.server.dao.AreaMapper;
 import com.help.server.model.Area;
 import com.help.server.model.AreaExample;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,7 +19,7 @@ public class AreaServiceImpl implements IAreaService {
     private AreaMapper areaMapper;
 
     @Override
-    public List<Area> list(AreaParam param) {
+    public List<AreaParam> list(AreaParam param) {
         AreaExample example = new AreaExample();
         AreaExample.Criteria criteria = example.createCriteria();
 
@@ -34,13 +36,30 @@ public class AreaServiceImpl implements IAreaService {
             criteria.andAreaTypeEqualTo(param.getAreaType());
         }
 
-        return areaMapper.selectByExample(example);
+        List<Area> list = areaMapper.selectByExample(example);
+        if (!CollectionUtils.isEmpty(list)) {
+            List<AreaParam> paramList = new ArrayList<>();
+            for (Area area : list) {
+                paramList.add(area2Param(area));
+            }
+
+            return paramList;
+        }
+
+        return new ArrayList<>();
+    }
+
+    private AreaParam area2Param(Area area) {
+        AreaParam param = new AreaParam();
+        BeanUtils.copyProperties(area, param);
+        return param;
     }
 
     @Override
-    public Area get(AreaParam param) {
-        List<Area> areaList = list(param);
+    public AreaParam get(AreaParam param) {
+        List<AreaParam> areaList = list(param);
 
         return CollectionUtils.isEmpty(areaList) ? null : areaList.get(0);
+
     }
 }

@@ -6,7 +6,7 @@ import com.help.server.model.Area;
 import java.util.List;
 
 public interface IAreaService {
-    public List<Area> list(AreaParam param);
+    public List<AreaParam> list(AreaParam param);
 
-    public Area get(AreaParam param);
+    public AreaParam get(AreaParam param);
 }

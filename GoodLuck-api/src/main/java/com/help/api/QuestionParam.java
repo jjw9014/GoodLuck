@@ -36,6 +36,18 @@ public class QuestionParam implements Serializable {
 
     private String wxNumber;
 
+    private String pubTimeStr;
+
+    private String auditTimeStr;
+
+    private String lastUpdateTimeStr;
+
+    private String provinceName;
+
+    private String cityName;
+
+    private String districtName;
+
     private static final long serialVersionUID = 1L;
 
     public String getNumber() {
@@ -164,5 +176,53 @@ public class QuestionParam implements Serializable {
 
     public void setWxNumber(String wxNumber) {
         this.wxNumber = wxNumber;
+    }
+
+    public String getPubTimeStr() {
+        return pubTimeStr;
+    }
+
+    public void setPubTimeStr(String pubTimeStr) {
+        this.pubTimeStr = pubTimeStr;
+    }
+
+    public String getAuditTimeStr() {
+        return auditTimeStr;
+    }
+
+    public void setAuditTimeStr(String auditTimeStr) {
+        this.auditTimeStr = auditTimeStr;
+    }
+
+    public String getLastUpdateTimeStr() {
+        return lastUpdateTimeStr;
+    }
+
+    public void setLastUpdateTimeStr(String lastUpdateTimeStr) {
+        this.lastUpdateTimeStr = lastUpdateTimeStr;
+    }
+
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getDistrictName() {
+        return districtName;
+    }
+
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
     }
 }

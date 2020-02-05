@@ -8,6 +8,7 @@ import com.help.server.common.ResultCodeEnum;
 import com.help.server.common.ResultHandler;
 import com.help.server.service.IAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class AreaFacadeImpl implements AreaFacade {
     private IAreaService areaService;
 
     @Override
+    @Cacheable(value="AREA_PROVINCE", sync=true)
     public ResultDTO<List> getProvinces() {
         AreaParam areaParam = new AreaParam();
         areaParam.setAreaType(2);
@@ -26,6 +28,7 @@ public class AreaFacadeImpl implements AreaFacade {
     }
 
     @Override
+    @Cacheable(value="AREA_CITY", sync=true, condition ="#code != '' ")
     public ResultDTO<List> getCitysByProvince(String code) {
         CommonUtils.assertEmptyField(code, ResultCodeEnum.AREA_PROVINCE_CODE_IS_NULL);
 
@@ -37,6 +40,7 @@ public class AreaFacadeImpl implements AreaFacade {
     }
 
     @Override
+    @Cacheable(value="AREA_DISTRICT", sync=true, condition ="#code != '' ")
     public ResultDTO<List> getDistrictsByCity(String code) {
         CommonUtils.assertEmptyField(code, ResultCodeEnum.AREA_CITY_CODE_IS_NULL);
 
@@ -48,6 +52,7 @@ public class AreaFacadeImpl implements AreaFacade {
     }
 
     @Override
+    @Cacheable(value="AREA", sync=true,  condition ="#code != '' ")
     public ResultDTO<AreaParam> getAreaByCode(String code) {
         CommonUtils.assertEmptyField(code, ResultCodeEnum.AREA_CODE_IS_NULL);
 

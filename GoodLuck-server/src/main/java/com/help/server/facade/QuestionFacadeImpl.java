@@ -4,10 +4,12 @@ import com.help.api.*;
 import com.help.server.common.*;
 import com.help.server.model.Question;
 import com.help.server.service.IQuestionService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +17,8 @@ import java.util.List;
 public class QuestionFacadeImpl implements QuestionFacade {
     @Autowired
     private IQuestionService questionService;
+    @Autowired
+    private AreaFacade areaFacade;
 
     @Override
     public ResultDTO pub(QuestionParam param) {
@@ -83,9 +87,39 @@ public class QuestionFacadeImpl implements QuestionFacade {
     public ResultDTO<List> list(QuestionPageParam pageParam) {
 
         int count = questionService.count(pageParam);
-        List<Question> list = questionService.list(pageParam);
 
-        return ResultHandler.handleSuccessWithCount(list, count);
+        List<QuestionParam> respList = new ArrayList<>();
+        if (count > 0) {
+            List<Question> list = questionService.list(pageParam);
+            for (Question question : list) {
+                respList.add(question2Resp(question));
+            }
+        }
+
+        return ResultHandler.handleSuccessWithCount(respList, count);
+    }
+
+    private QuestionParam question2Resp(Question question) {
+        QuestionParam param = new QuestionParam();
+        BeanUtils.copyProperties(question, param);
+
+        param.setPubTimeStr(param.getPubTime()==null?null:DateUtils.formatDate(param.getPubTime()));
+        param.setAuditTimeStr(param.getAuditTime()==null?null:DateUtils.formatDate(param.getAuditTime()));
+        param.setLastUpdateTimeStr(param.getLastUpdateTime()==null?null:DateUtils.formatDate(param.getLastUpdateTime()));
+        param.setProvinceName(StringUtils.isEmpty(param.getProvince())?"":getAreaByCode(param.getProvince()));
+        param.setCityName(StringUtils.isEmpty(param.getCity())?"":getAreaByCode(param.getCity()));
+        param.setDistrictName(StringUtils.isEmpty(param.getDistrict())?"":getAreaByCode(param.getDistrict()));
+
+        return param;
+    }
+
+    private String getAreaByCode(String code) {
+        ResultDTO<AreaParam> resultDTO = areaFacade.getAreaByCode(code);
+        if (resultDTO != null && resultDTO.isSuccess() && resultDTO.getData() != null) {
+            return resultDTO.getData().getAreaName();
+        }
+
+        return null;
     }
 
     @Override
@@ -95,8 +129,7 @@ public class QuestionFacadeImpl implements QuestionFacade {
 
         CommonUtils.assertNullField(question, ResultCodeEnum.QUESTION_NUMBER_NOT_EXIST);
 
-        QuestionParam questionParam = new QuestionParam();
-        BeanUtils.copyProperties(question, questionParam);
+        QuestionParam questionParam = question2Resp(question);
         return ResultHandler.handleSuccess(questionParam);
     }
 

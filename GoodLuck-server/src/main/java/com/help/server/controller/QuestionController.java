@@ -119,7 +119,7 @@ public class QuestionController {
         return JSON.toJSONString(questionFacade.updateInfo(updateParam));
     }
 
-    // http://127.0.0.1:9090/question/pub?remark=买不到医用口罩&tag=A&pubUserId=chuanqirensheng&province=江西省&city=抚州市&district=乐安县&street=招携镇&mobile=13265479740
+    // http://127.0.0.1:9090/question/pub?remark=买不到医用口罩&tag=A&pubUserId=chuanqirensheng&province=360000&city=361000&district=361025&street=招携镇&mobile=13265479740
     @RequestMapping(value="/pub")
     @ResponseBody
     public String pub(@RequestBody QuestionParam param) {
@@ -134,7 +134,7 @@ public class QuestionController {
         return JSON.toJSONString(questionFacade.updateInfo(updateParam));
     }
 
-    // http://127.0.0.1:9090/question/pub?remark=买不到医用口罩&tag=A&pubUserId=chuanqirensheng&province=江西省&city=抚州市&district=乐安县&street=招携镇&mobile=13265479740
+    // http://127.0.0.1:9090/question/pub?remark=买不到医用口罩&tag=A&pubUserId=chuanqirensheng&province=360000&city=361000&district=361025&street=招携镇&mobile=13265479740
     @RequestMapping(value="/pubByGet")
     @ResponseBody
     public String pubByGet(QuestionParam param) {
@@ -178,7 +178,7 @@ public class QuestionController {
         return JSON.toJSONString(questionFacade.resolve(number, userId));
     }
 
-    // http://127.0.0.1:9090/question/list?pageSize=10&pageNo=1&starsMin=3&starsMax=5&province=%E6%B1%9F%E8%A5%BF%E7%9C%81&city=%E6%8A%9A%E5%B7%9E%E5%B8%82&district=%E4%B9%90%E5%AE%89%E5%8E%BF&street=%E6%9C%9B%E4%BB%99%E9%95%87&mobile=13265479740
+    // http://127.0.0.1:9090/question/list?pageSize=10&pageNo=1&starsMin=3&starsMax=5&province=360000&city=361000&district=361025&street=%E6%9C%9B%E4%BB%99%E9%95%87&mobile=13265479740
     @RequestMapping(value="/listByGet")
     @ResponseBody
     public String listByGet(QuestionPageParam param) {
@@ -186,7 +186,7 @@ public class QuestionController {
         return JSON.toJSONString(questionFacade.list(param));
     }
 
-    // http://127.0.0.1:9090/question/list?pageSize=10&pageNo=1&starsMin=3&starsMax=5&province=%E6%B1%9F%E8%A5%BF%E7%9C%81&city=%E6%8A%9A%E5%B7%9E%E5%B8%82&district=%E4%B9%90%E5%AE%89%E5%8E%BF&street=%E6%9C%9B%E4%BB%99%E9%95%87&mobile=13265479740
+    // http://127.0.0.1:9090/question/list?pageSize=10&pageNo=1&starsMin=3&starsMax=5&province=360000&city=361000&district=361025&street=%E6%9C%9B%E4%BB%99%E9%95%87&mobile=13265479740
     @RequestMapping(value="/list")
     @ResponseBody
     public String list(@RequestBody QuestionPageParam param) {
