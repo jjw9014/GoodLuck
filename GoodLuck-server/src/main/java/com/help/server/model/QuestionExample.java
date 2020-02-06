@@ -1055,66 +1055,6 @@ public class QuestionExample {
             return (Criteria) this;
         }
 
-        public Criteria andStarsIsNull() {
-            addCriterion("stars is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarsIsNotNull() {
-            addCriterion("stars is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarsEqualTo(Integer value) {
-            addCriterion("stars =", value, "stars");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarsNotEqualTo(Integer value) {
-            addCriterion("stars <>", value, "stars");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarsGreaterThan(Integer value) {
-            addCriterion("stars >", value, "stars");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarsGreaterThanOrEqualTo(Integer value) {
-            addCriterion("stars >=", value, "stars");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarsLessThan(Integer value) {
-            addCriterion("stars <", value, "stars");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarsLessThanOrEqualTo(Integer value) {
-            addCriterion("stars <=", value, "stars");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarsIn(List<Integer> values) {
-            addCriterion("stars in", values, "stars");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarsNotIn(List<Integer> values) {
-            addCriterion("stars not in", values, "stars");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarsBetween(Integer value1, Integer value2) {
-            addCriterion("stars between", value1, value2, "stars");
-            return (Criteria) this;
-        }
-
-        public Criteria andStarsNotBetween(Integer value1, Integer value2) {
-            addCriterion("stars not between", value1, value2, "stars");
-            return (Criteria) this;
-        }
-
         public Criteria andWxNumberIsNull() {
             addCriterion("wx_number is null");
             return (Criteria) this;
@@ -1185,6 +1125,136 @@ public class QuestionExample {
             return (Criteria) this;
         }
 
+        public Criteria andStarsIsNull() {
+            addCriterion("stars is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStarsIsNotNull() {
+            addCriterion("stars is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStarsEqualTo(Integer value) {
+            addCriterion("stars =", value, "stars");
+            return (Criteria) this;
+        }
+
+        public Criteria andStarsNotEqualTo(Integer value) {
+            addCriterion("stars <>", value, "stars");
+            return (Criteria) this;
+        }
+
+        public Criteria andStarsGreaterThan(Integer value) {
+            addCriterion("stars >", value, "stars");
+            return (Criteria) this;
+        }
+
+        public Criteria andStarsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("stars >=", value, "stars");
+            return (Criteria) this;
+        }
+
+        public Criteria andStarsLessThan(Integer value) {
+            addCriterion("stars <", value, "stars");
+            return (Criteria) this;
+        }
+
+        public Criteria andStarsLessThanOrEqualTo(Integer value) {
+            addCriterion("stars <=", value, "stars");
+            return (Criteria) this;
+        }
+
+        public Criteria andStarsIn(List<Integer> values) {
+            addCriterion("stars in", values, "stars");
+            return (Criteria) this;
+        }
+
+        public Criteria andStarsNotIn(List<Integer> values) {
+            addCriterion("stars not in", values, "stars");
+            return (Criteria) this;
+        }
+
+        public Criteria andStarsBetween(Integer value1, Integer value2) {
+            addCriterion("stars between", value1, value2, "stars");
+            return (Criteria) this;
+        }
+
+        public Criteria andStarsNotBetween(Integer value1, Integer value2) {
+            addCriterion("stars not between", value1, value2, "stars");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5IsNull() {
+            addCriterion("pic_md5 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5IsNotNull() {
+            addCriterion("pic_md5 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5EqualTo(String value) {
+            addCriterion("pic_md5 =", value, "picMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5NotEqualTo(String value) {
+            addCriterion("pic_md5 <>", value, "picMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5GreaterThan(String value) {
+            addCriterion("pic_md5 >", value, "picMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5GreaterThanOrEqualTo(String value) {
+            addCriterion("pic_md5 >=", value, "picMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5LessThan(String value) {
+            addCriterion("pic_md5 <", value, "picMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5LessThanOrEqualTo(String value) {
+            addCriterion("pic_md5 <=", value, "picMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5Like(String value) {
+            addCriterion("pic_md5 like", value, "picMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5NotLike(String value) {
+            addCriterion("pic_md5 not like", value, "picMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5In(List<String> values) {
+            addCriterion("pic_md5 in", values, "picMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5NotIn(List<String> values) {
+            addCriterion("pic_md5 not in", values, "picMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5Between(String value1, String value2) {
+            addCriterion("pic_md5 between", value1, value2, "picMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5NotBetween(String value1, String value2) {
+            addCriterion("pic_md5 not between", value1, value2, "picMd5");
+            return (Criteria) this;
+        }
+
         public Criteria andNumberLikeInsensitive(String value) {
             addCriterion("upper(number) like", value.toUpperCase(), "number");
             return (Criteria) this;
@@ -1242,6 +1312,11 @@ public class QuestionExample {
 
         public Criteria andWxNumberLikeInsensitive(String value) {
             addCriterion("upper(wx_number) like", value.toUpperCase(), "wxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicMd5LikeInsensitive(String value) {
+            addCriterion("upper(pic_md5) like", value.toUpperCase(), "picMd5");
             return (Criteria) this;
         }
     }

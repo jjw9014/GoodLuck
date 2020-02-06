@@ -20,6 +20,13 @@ public enum ResultCodeEnum {
     QUESTION_NUMBER_NOT_EXIST("205", "问题编号不存在"),
     QUESTION_AUDIT_STATE_IS_NULL("206", "审核状态为空"),
     QUESTION_USER_IS_NULL("207", "用户信息为空"),
+
+    PICTURE_MD5_IS_NULL("301", "图片md5为空"),
+    PICTURE_URL_IS_NULL("302", "图片url为空"),
+    PICTURE_NAME_IS_NULL("303", "图片名称为空"),
+    PICTURE_NOT_EXIST("304", "图片不存在"),
+
+
     ;
     private String code;
     private String message;

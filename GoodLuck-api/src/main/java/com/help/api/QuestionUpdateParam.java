@@ -23,6 +23,8 @@ public class QuestionUpdateParam implements Serializable {
 
     private String wxNumber;
 
+    private String picMd5;
+
     public String getNumber() {
         return number;
     }
@@ -93,5 +95,13 @@ public class QuestionUpdateParam implements Serializable {
 
     public void setWxNumber(String wxNumber) {
         this.wxNumber = wxNumber;
+    }
+
+    public String getPicMd5() {
+        return picMd5;
+    }
+
+    public void setPicMd5(String picMd5) {
+        this.picMd5 = picMd5;
     }
 }

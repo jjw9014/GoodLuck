@@ -1,9 +1,11 @@
 package com.help.server.facade;
 
+import com.github.pagehelper.util.StringUtil;
 import com.help.api.*;
 import com.help.server.common.*;
 import com.help.server.model.Question;
 import com.help.server.service.IQuestionService;
+import com.help.server.service.PictureService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class QuestionFacadeImpl implements QuestionFacade {
     private IQuestionService questionService;
     @Autowired
     private AreaFacade areaFacade;
+    @Autowired
+    private PictureService pictureService;
 
     @Override
     public ResultDTO pub(QuestionParam param) {
@@ -110,7 +114,18 @@ public class QuestionFacadeImpl implements QuestionFacade {
         param.setCityName(StringUtils.isEmpty(param.getCity())?"":getAreaByCode(param.getCity()));
         param.setDistrictName(StringUtils.isEmpty(param.getDistrict())?"":getAreaByCode(param.getDistrict()));
 
+        // 设置下载地址
+        param.setPicList(getPictureByMd5s(param.getPicMd5()));
+
         return param;
+    }
+
+    private List<PictureParam> getPictureByMd5s(String picMd5) {
+        if (StringUtils.isBlank(picMd5)) {
+            return new ArrayList<>();
+        }
+
+        return pictureService.list(Arrays.asList(picMd5.split(",")));
     }
 
     private String getAreaByCode(String code) {

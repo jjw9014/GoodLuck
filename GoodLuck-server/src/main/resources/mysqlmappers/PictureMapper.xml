@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.help.server.dao.PictureMapper" >
+  <resultMap id="BaseResultMap" type="com.help.server.model.Picture" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pic_name" property="picName" jdbcType="VARCHAR" />
+    <result column="pic_size" property="picSize" jdbcType="INTEGER" />
+    <result column="pic_suffix" property="picSuffix" jdbcType="VARCHAR" />
+    <result column="pic_md5" property="picMd5" jdbcType="VARCHAR" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, pic_name, pic_size, pic_suffix, pic_md5, pic_url, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.help.server.model.PictureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from picture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from picture
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from picture
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.help.server.model.PictureExample" >
+    delete from picture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.help.server.model.Picture" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE" >
+      select REPLACE(UUID(),'-','') FROM dual
+    </selectKey>
+    insert into picture (id, pic_name, pic_size, 
+      pic_suffix, pic_md5, pic_url, 
+      create_time)
+    values (#{id,jdbcType=VARCHAR}, #{picName,jdbcType=VARCHAR}, #{picSize,jdbcType=INTEGER}, 
+      #{picSuffix,jdbcType=VARCHAR}, #{picMd5,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.help.server.model.Picture" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE" >
+      select REPLACE(UUID(),'-','') FROM dual
+    </selectKey>
+    insert into picture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      <if test="picName != null" >
+        pic_name,
+      </if>
+      <if test="picSize != null" >
+        pic_size,
+      </if>
+      <if test="picSuffix != null" >
+        pic_suffix,
+      </if>
+      <if test="picMd5 != null" >
+        pic_md5,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=VARCHAR},
+      <if test="picName != null" >
+        #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="picSize != null" >
+        #{picSize,jdbcType=INTEGER},
+      </if>
+      <if test="picSuffix != null" >
+        #{picSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="picMd5 != null" >
+        #{picMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.help.server.model.PictureExample" resultType="java.lang.Integer" >
+    select count(*) from picture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update picture
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picName != null" >
+        pic_name = #{record.picName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picSize != null" >
+        pic_size = #{record.picSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.picSuffix != null" >
+        pic_suffix = #{record.picSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picMd5 != null" >
+        pic_md5 = #{record.picMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picUrl != null" >
+        pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update picture
+    set id = #{record.id,jdbcType=VARCHAR},
+      pic_name = #{record.picName,jdbcType=VARCHAR},
+      pic_size = #{record.picSize,jdbcType=INTEGER},
+      pic_suffix = #{record.picSuffix,jdbcType=VARCHAR},
+      pic_md5 = #{record.picMd5,jdbcType=VARCHAR},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.help.server.model.Picture" >
+    update picture
+    <set >
+      <if test="picName != null" >
+        pic_name = #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="picSize != null" >
+        pic_size = #{picSize,jdbcType=INTEGER},
+      </if>
+      <if test="picSuffix != null" >
+        pic_suffix = #{picSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="picMd5 != null" >
+        pic_md5 = #{picMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.help.server.model.Picture" >
+    update picture
+    set pic_name = #{picName,jdbcType=VARCHAR},
+      pic_size = #{picSize,jdbcType=INTEGER},
+      pic_suffix = #{picSuffix,jdbcType=VARCHAR},
+      pic_md5 = #{picMd5,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

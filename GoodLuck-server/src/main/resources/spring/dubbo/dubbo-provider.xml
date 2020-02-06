@@ -11,7 +11,8 @@
     <dubbo:protocol name="${spring.dubbo.protocol.name}" host="${server.address}"  port="${spring.dubbo.protocol.port}" threads="${spring.dubbo.protocol.threads}"/>
 
     <dubbo:service interface="com.help.api.SuggestFacade" ref="suggestFacade" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.help.api.SuggestFacade" ref="suggestFacade" timeout="3000" retries="0"/>
     <dubbo:service interface="com.help.api.QuestionFacade" ref="questionFacade" timeout="3000" retries="0"/>
-    <dubbo:service interface="com.help.api.AreaFacade" ref="areaFacade" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.help.api.PictureFacade" ref="pictureFacade" timeout="3000" retries="0"/>
 
 </beans>

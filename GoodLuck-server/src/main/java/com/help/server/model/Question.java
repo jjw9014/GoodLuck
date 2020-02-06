@@ -32,9 +32,11 @@ public class Question implements Serializable {
 
     private String mobile;
 
+    private String wxNumber;
+
     private Integer stars;
 
-    private String wxNumber;
+    private String picMd5;
 
     private static final long serialVersionUID = 1L;
 
@@ -150,6 +152,14 @@ public class Question implements Serializable {
         this.mobile = mobile;
     }
 
+    public String getWxNumber() {
+        return wxNumber;
+    }
+
+    public void setWxNumber(String wxNumber) {
+        this.wxNumber = wxNumber;
+    }
+
     public Integer getStars() {
         return stars;
     }
@@ -158,11 +168,11 @@ public class Question implements Serializable {
         this.stars = stars;
     }
 
-    public String getWxNumber() {
-        return wxNumber;
+    public String getPicMd5() {
+        return picMd5;
     }
 
-    public void setWxNumber(String wxNumber) {
-        this.wxNumber = wxNumber;
+    public void setPicMd5(String picMd5) {
+        this.picMd5 = picMd5;
     }
 }

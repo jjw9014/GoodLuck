@@ -2,6 +2,7 @@ package com.help.api;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class QuestionParam implements Serializable {
     private String number;
@@ -36,6 +37,8 @@ public class QuestionParam implements Serializable {
 
     private String wxNumber;
 
+    private String picMd5;
+
     private String pubTimeStr;
 
     private String auditTimeStr;
@@ -47,6 +50,8 @@ public class QuestionParam implements Serializable {
     private String cityName;
 
     private String districtName;
+
+    private List<PictureParam> picList;
 
     private static final long serialVersionUID = 1L;
 
@@ -178,6 +183,14 @@ public class QuestionParam implements Serializable {
         this.wxNumber = wxNumber;
     }
 
+    public String getPicMd5() {
+        return picMd5;
+    }
+
+    public void setPicMd5(String picMd5) {
+        this.picMd5 = picMd5;
+    }
+
     public String getPubTimeStr() {
         return pubTimeStr;
     }
@@ -224,5 +237,13 @@ public class QuestionParam implements Serializable {
 
     public void setDistrictName(String districtName) {
         this.districtName = districtName;
+    }
+
+    public List<PictureParam> getPicList() {
+        return picList;
+    }
+
+    public void setPicList(List<PictureParam> picList) {
+        this.picList = picList;
     }
 }
