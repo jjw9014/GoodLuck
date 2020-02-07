@@ -44,7 +44,7 @@ public class PictureFacadeImpl implements PictureFacade {
         List<PictureParam> list = pictureService.list(Arrays.asList(md5));
 
         if (CollectionUtils.isEmpty(list)) {
-            ResultHandler.handleError(ResultCodeEnum.PICTURE_NOT_EXIST);
+            return ResultHandler.handleError(ResultCodeEnum.PICTURE_NOT_EXIST);
         }
 
         return ResultHandler.handleSuccess(list.get(0));
