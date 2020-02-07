@@ -78,14 +78,15 @@ public class WxLoginController {
             JSONObject jsonObject = HttpClientUtil.doGetJson(url);
             String openId =  jsonObject.getString("openid");
             String token = jsonObject.getString("access_token");
+            String refreshToken =  jsonObject.getString("refresh_token");
 
             // 刷新access_token, refresh_token
-            String refreshTokenUrl = AuthUtil.WX_REFRESH_ACCESS_TOKEN_URL + "?ppid=" + AuthUtil.APP_ID + "&grant_type=refresh_token"
-                    + "&refresh_token=" + token;
+            String refreshTokenUrl = AuthUtil.WX_REFRESH_ACCESS_TOKEN_URL + "?appid=" + AuthUtil.APP_ID + "&grant_type=refresh_token"
+                    + "&refresh_token=" + refreshToken;
             JSONObject refreshTokenJson = HttpClientUtil.doGetJson(refreshTokenUrl);
             String  accessToken = refreshTokenJson.getString("access_token");
-            int expiresIn = refreshTokenJson.getIntValue("expires_in");
-            String refreshToken =  refreshTokenJson.getString("refresh_token");
+            int expiresIn = 30*24*60*60;
+
             String scope = refreshTokenJson.getString("scope");
 
             //将微信用户信息存入redis中
@@ -113,6 +114,7 @@ public class WxLoginController {
                 //添加cookie
                 Cookie cookie = new Cookie("wx_openid",openId);
                 cookie.setMaxAge(expiresIn);
+                cookie.setPath("/");
                 response.addCookie(cookie);
 
                 // 这里是授权成功返回的页面

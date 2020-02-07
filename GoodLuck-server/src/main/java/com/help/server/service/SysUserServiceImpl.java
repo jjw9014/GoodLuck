@@ -95,6 +95,7 @@ public class SysUserServiceImpl implements SysUserService {
             return false;
         }
         SysUser user = userList.get(0);
+        user.setUpdateTime(new Date());
         user.setPassword(DigestUtils.md5Hex(password));
         int updateNum = sysUserMapper.updateByPrimaryKey(user);
         if(updateNum > 0){

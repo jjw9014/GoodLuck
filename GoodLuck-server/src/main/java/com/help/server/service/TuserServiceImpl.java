@@ -32,7 +32,7 @@ public class TuserServiceImpl implements TuserService{
     public boolean addWxUserInfo(Tuser tuser) {
         tuser.setCreateTime(new Date());
         String openId = tuser.getId();
-        if(openId != null){
+        if(openId == null){
             return false;
         }else{
             Tuser user = tuserMapper.selectByPrimaryKey(openId);

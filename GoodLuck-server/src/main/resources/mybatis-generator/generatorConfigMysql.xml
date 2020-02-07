@@ -76,5 +76,12 @@
              <!--<generatedKey column="ID" sqlStatement="select REPLACE(UUID(),'-','') FROM dual" type="pre" identity="false" />-->
          <!--</table>-->
 
+         <table tableName="sys_user"
+                enableInsert="true" enableCountByExample="true"
+                enableSelectByPrimaryKey="true" enableSelectByExample="true"
+                enableUpdateByPrimaryKey="true" enableUpdateByExample="true"
+                enableDeleteByPrimaryKey="true" enableDeleteByExample="true">
+         </table>
+
      </context>
  </generatorConfiguration>
