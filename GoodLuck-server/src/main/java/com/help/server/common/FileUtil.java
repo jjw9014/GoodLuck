@@ -14,7 +14,7 @@ public class FileUtil {
     public static final String BASE_URL = "/app/picture/";
 
     public static String temp(byte[] file) {
-        String tempFileName = UUID.randomUUID().toString();
+        String tempFileName = "tmp_" + UUID.randomUUID().toString();
         File targetFile = new File(BASE_URL);
         if(!targetFile.exists()){
             targetFile.mkdirs();
@@ -34,7 +34,12 @@ public class FileUtil {
         String md5 = getStringMd5(src);
 
         File dest = new File(BASE_URL + md5);
-        src.renameTo(dest);
+
+        if (dest.exists()) {
+            clean(tempFileName);
+        } else {
+            src.renameTo(dest);
+        }
 
         return md5;
     }

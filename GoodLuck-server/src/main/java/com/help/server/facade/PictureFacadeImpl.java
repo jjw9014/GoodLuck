@@ -20,14 +20,14 @@ public class PictureFacadeImpl implements PictureFacade {
     private PictureService pictureService;
 
     @Override
-    public ResultDTO<String> upload(PictureParam param) {
+    public ResultDTO<PictureParam> upload(PictureParam param) {
         CommonUtils.assertEmptyField(param.getPicMd5(), ResultCodeEnum.PICTURE_MD5_IS_NULL);
         CommonUtils.assertEmptyField(param.getPicUrl(), ResultCodeEnum.PICTURE_URL_IS_NULL);
         CommonUtils.assertEmptyField(param.getPicName(), ResultCodeEnum.PICTURE_NAME_IS_NULL);
 
         pictureService.submit(param);
 
-        return ResultHandler.handleSuccess(param.getPicMd5());
+        return ResultHandler.handleSuccess(param);
     }
 
     @Override
