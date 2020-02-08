@@ -25,7 +25,11 @@ public class PictureFacadeImpl implements PictureFacade {
         CommonUtils.assertEmptyField(param.getPicUrl(), ResultCodeEnum.PICTURE_URL_IS_NULL);
         CommonUtils.assertEmptyField(param.getPicName(), ResultCodeEnum.PICTURE_NAME_IS_NULL);
 
-        pictureService.submit(param);
+        List<PictureParam> list = pictureService.list(Arrays.asList(param.getPicMd5()));
+
+        if (CollectionUtils.isEmpty(list)) {// 图片不存在，则提交
+            pictureService.submit(param);
+        }
 
         return ResultHandler.handleSuccess(param);
     }

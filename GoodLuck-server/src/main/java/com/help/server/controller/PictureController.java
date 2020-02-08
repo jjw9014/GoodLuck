@@ -9,16 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 
 @Controller
@@ -49,7 +45,7 @@ public class PictureController {
 
         if (md5 != null) {
             pictureParam.setPicMd5(md5);
-            pictureParam.setPicUrl("picture/download?md5=" + md5);
+            pictureParam.setPicUrl("picture/preview/" + md5);
         }
 
         // todo 暂时不上传ftp
@@ -103,6 +99,43 @@ public class PictureController {
                 response.getWriter().close();
             } catch (IOException e1) {
                 e1.printStackTrace();
+            }
+        }
+    }
+
+    // http://127.0.0.1:9090/picture/preview/1c8d7d1e8aefa22449a06a914efd441e
+    @RequestMapping(value="/preview/{md5}")
+    @ResponseBody
+    public void preview(@PathVariable String md5, HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        md5 = (String) GetParamsUtils.getValueIfNull(md5, paramMap.get("md5"), " ");
+
+        ResultDTO<PictureParam> resultDTO = pictureFacade.info(md5);
+        if (!resultDTO.isSuccess() || resultDTO.getData() == null) {
+            logger.error("图片不存在，{}", md5);
+            return;
+        }
+
+        // photoUrl为接收到的路径
+        File file = new File(FileUtil.BASE_URL + md5);
+        if (file.exists()) {
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                BufferedInputStream bis = new BufferedInputStream(fis, 1024);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream(1024);
+                byte[] cache = new byte[1024];
+                int length = 0;
+                while ((length = bis.read(cache)) != -1) {
+                    bos.write(cache, 0, length);
+                }
+                /**
+                return bos.toByteArray();
+                BASE64Encoder encoder = new BASE64Encoder();
+                return encoder.encode(bos.toByteArray());
+                **/
+                response.getOutputStream().write(bos.toByteArray());
+            } catch (Exception e) {
+                logger.error("show picture failed", e);
             }
         }
     }
