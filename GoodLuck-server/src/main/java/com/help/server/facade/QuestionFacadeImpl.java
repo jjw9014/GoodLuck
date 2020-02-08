@@ -151,11 +151,12 @@ public class QuestionFacadeImpl implements QuestionFacade {
     @Override
     public ResultDTO<QuestionCountDTO> count() {
         QuestionPageParam newAddPageParam = new QuestionPageParam();
-        newAddPageParam.setAuditState(AuditStateEnum.AUDITING.getCode());
+        newAddPageParam.setState(StateEnum.UNRESOLVED.getCode());
+        newAddPageParam.setAuditStates(Arrays.asList(AuditStateEnum.AUDITING.getCode(), AuditStateEnum.AUDITED_FAILURE.getCode()));
 
         QuestionPageParam unresolvedPageParam = new QuestionPageParam();
         unresolvedPageParam.setState(StateEnum.UNRESOLVED.getCode());
-        unresolvedPageParam.setAuditStates(Arrays.asList(AuditStateEnum.AUIDTED.getCode(), AuditStateEnum.VERIFIED.getCode()));
+        unresolvedPageParam.setAuditStates(Arrays.asList(AuditStateEnum.AUIDTED.getCode(), AuditStateEnum.VERIFIED.getCode(), AuditStateEnum.VERIFIED_FAILURE.getCode()));
 
         QuestionPageParam resolvedPageParam = new QuestionPageParam();
         resolvedPageParam.setState(StateEnum.RESOLVED.getCode());
