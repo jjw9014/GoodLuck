@@ -1,7 +1,9 @@
 package com.help.server.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.help.api.ResultDTO;
 import com.help.server.common.AuthUtil;
+import com.help.server.common.HttpClientUtil;
 import com.help.server.common.ResultHandler;
 import com.help.server.model.Tuser;
 import com.help.server.model.WxUserInfo;
@@ -71,6 +73,21 @@ public class TuserController {
      */
     @RequestMapping(value = "/addWxUserInfo")
     public ResultDTO addWxUserInfo(WxUserInfo user) {
+        if(user.getId() == null){
+            String code = user.getCode();
+            if(code == null){
+                return ResultHandler.createErrorResult("登录code不存在");
+            }
+            String url = AuthUtil.MINI_PRO_LOGIN_VALIDATE_URL + "?appid=" + AuthUtil.MINI_PRO_APP_ID + "&secret="
+                    + AuthUtil.MINI_PRO_APP_SECRET + "&js_code=" + code + "&grant_type=authorization_code";
+            JSONObject json = HttpClientUtil.doGetJson(url);
+            String openId = json.getString("openid");
+            if(openId == null){
+                return ResultHandler.createErrorResult(json.getString("errmsg"));
+            }
+            user.setId(openId);
+        }
+
         Tuser tuser= user.wxUserToTuser();
         boolean result = tuserService.addWxUserInfo(tuser);
         if(result){

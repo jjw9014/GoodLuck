@@ -4,16 +4,16 @@ import com.github.pagehelper.util.StringUtil;
 import com.help.api.*;
 import com.help.server.common.*;
 import com.help.server.model.Question;
+import com.help.server.model.Tuser;
 import com.help.server.service.IQuestionService;
 import com.help.server.service.PictureService;
+import com.help.server.service.TuserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service("questionFacade")
 public class QuestionFacadeImpl implements QuestionFacade {
@@ -23,6 +23,9 @@ public class QuestionFacadeImpl implements QuestionFacade {
     private AreaFacade areaFacade;
     @Autowired
     private PictureService pictureService;
+
+    @Autowired
+    private TuserService tuserService;
 
     @Override
     public ResultDTO pub(QuestionParam param) {
@@ -93,15 +96,22 @@ public class QuestionFacadeImpl implements QuestionFacade {
         List<QuestionParam> respList = new ArrayList<>();
         if (count > 0) {
             List<Question> list = questionService.list(pageParam);
+            Set<String> pubUserSet = new HashSet<>();
+
             for (Question question : list) {
-                respList.add(question2Resp(question));
+                pubUserSet.add(question.getPubUserId());
             }
+            Map<String, Tuser> tuserMap = tuserService.list(pubUserSet);
+            for (Question question : list) {
+                respList.add(question2Resp(question,tuserMap));
+            }
+
         }
 
         return ResultHandler.handleSuccessWithCount(respList, count);
     }
 
-    private QuestionParam question2Resp(Question question) {
+    private QuestionParam question2Resp(Question question,Map<String, Tuser> tuserMap) {
         QuestionParam param = new QuestionParam();
         BeanUtils.copyProperties(question, param);
 
@@ -115,8 +125,15 @@ public class QuestionFacadeImpl implements QuestionFacade {
         // 设置下载地址
         param.setPicList(getPictureByMd5s(param.getPicMd5()));
 
-        param.setNickName(StringUtils.isEmpty(param.getNickName())? "": param.getNickName());
-        param.setHeadImgUrl(StringUtils.isEmpty(param.getHeadImgUrl())? "": param.getHeadImgUrl());
+        String pubUserId = param.getPubUserId();
+        if(pubUserId != null && tuserMap.containsKey(pubUserId)){
+            Tuser user = tuserMap.get(pubUserId);
+            param.setNickName(user.getNickName());
+            param.setHeadImgUrl(user.getHeadImgUrl());
+        }else{
+            param.setNickName("");
+            param.setHeadImgUrl("");
+        }
 
         return param;
     }
@@ -145,7 +162,8 @@ public class QuestionFacadeImpl implements QuestionFacade {
 
         CommonUtils.assertNullField(question, ResultCodeEnum.QUESTION_NUMBER_NOT_EXIST);
 
-        QuestionParam questionParam = question2Resp(question);
+
+        QuestionParam questionParam = question2Resp(question,tuserService.getUserInfoToMap(question.getPubUserId()));
         return ResultHandler.handleSuccess(questionParam);
     }
 

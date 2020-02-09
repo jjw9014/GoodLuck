@@ -4,6 +4,7 @@ import com.help.api.ResultDTO;
 import com.help.server.common.LoginHelper;
 import com.help.server.common.ResultHandler;
 import com.help.server.common.RsaUtils;
+import com.help.server.model.SysUser;
 import com.help.server.service.SysUserService;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
@@ -100,6 +101,21 @@ public class SysUserController {
             return ResultHandler.handleSuccess("修改用户信息成功",result);
         }else{
             return ResultHandler.createErrorResult("修改用户信息失败");
+        }
+    }
+
+    /**
+     * 获取登录用户
+     * @return
+     */
+    @RequestMapping(value = "/getLoginUser")
+    public ResultDTO getLoginUser(HttpServletRequest request, HttpServletResponse response) {
+
+        SysUser user = LoginHelper.getLoginUser();
+        if(user != null){
+            return ResultHandler.handleSuccess("获取登录信息成功",user);
+        }else{
+            return ResultHandler.createErrorResult("获取登录信息失败");
         }
     }
 }

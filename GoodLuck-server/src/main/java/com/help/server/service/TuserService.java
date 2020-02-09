@@ -1,6 +1,8 @@
 package com.help.server.service;
 
 import com.help.server.model.Tuser;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 用户管理接口
@@ -30,4 +32,19 @@ public interface TuserService {
      * @return
      */
     boolean editUserInfo(Tuser tuser);
+
+    /**
+     * 通过ids获取用户集合
+     * @param set
+     * @return
+     */
+    Map<String,Tuser> list(Set<String> set);
+
+    /**
+     * 获取用户信息转为集合
+     * @param openId
+     * @return
+     */
+    Map<String,Tuser> getUserInfoToMap(String openId);
+
 }

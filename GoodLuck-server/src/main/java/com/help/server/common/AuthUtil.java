@@ -51,8 +51,26 @@ public class AuthUtil {
      */
     public static final String WX_USER_INFO_URL = "https://api.weixin.qq.com/sns/userinfo";
 
-
+    /**
+     * 微信授权成功页面
+     */
     public static final String WX_AUTH_SUCCESS_URL = CommonConfigUtil.getValue("wx_auth_success_url");;
+
+    /**
+     * 小程序APPID
+     */
+    public static final String MINI_PRO_APP_ID = CommonConfigUtil.getValue("mini_pro_app_id");
+
+    /**
+     * 小程序APPSECRET
+     */
+    public static final String MINI_PRO_APP_SECRET = CommonConfigUtil.getValue("mini_pro_app_secret");
+
+    /**
+     * 小程序登录校验url
+     */
+    public static final String MINI_PRO_LOGIN_VALIDATE_URL = "https://api.weixin.qq.com/sns/jscode2session";
+
     /**
      * 从cookie获取openId
      * @param request
