@@ -47,4 +47,11 @@ public interface TuserService {
      */
     Map<String,Tuser> getUserInfoToMap(String openId);
 
+    /**
+     * 注册
+     * @param tuser 用户信息
+     * @return
+     */
+    void register(Tuser tuser);
+
 }

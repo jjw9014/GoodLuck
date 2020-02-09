@@ -84,4 +84,25 @@ public class TuserServiceImpl implements TuserService{
         }
         return map;
     }
+
+    @Override
+    public void register(Tuser tuser) {
+
+        String openId = tuser.getId();
+        if(openId != null){
+            Tuser user = tuserMapper.selectByPrimaryKey(openId);
+            if(user != null){
+                log.info("用户名已存在，进行修改操作");
+                this.editUserInfo(tuser);
+            }else{
+                tuser.setCreateTime(new Date());
+                int insertNum = tuserMapper.insertSelective(tuser);
+                if(insertNum > 0){
+                    log.info("用户添加成功");
+                }
+            }
+        }else{
+            tuser = null;
+        }
+    }
 }

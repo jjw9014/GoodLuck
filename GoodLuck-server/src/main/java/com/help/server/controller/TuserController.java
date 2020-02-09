@@ -72,7 +72,7 @@ public class TuserController {
      * @return
      */
     @RequestMapping(value = "/addWxUserInfo")
-    public ResultDTO addWxUserInfo(WxUserInfo user) {
+    public ResultDTO register(WxUserInfo user) {
         if(user.getId() == null){
             String code = user.getCode();
             if(code == null){
@@ -89,11 +89,11 @@ public class TuserController {
         }
 
         Tuser tuser= user.wxUserToTuser();
-        boolean result = tuserService.addWxUserInfo(tuser);
-        if(result){
-            return ResultHandler.handleSuccess("添加用户成功",tuser);
+        tuserService.register(tuser);
+        if(tuser != null){
+            return ResultHandler.handleSuccess("注册成功",tuser);
         }else{
-            return ResultHandler.createErrorResult("添加用户失败，请稍后重试");
+            return ResultHandler.createErrorResult("注册失败，请稍后重试");
         }
     }
 
