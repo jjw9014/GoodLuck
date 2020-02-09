@@ -4,6 +4,7 @@ import com.help.api.ResultDTO;
 import com.help.server.common.AuthUtil;
 import com.help.server.common.ResultHandler;
 import com.help.server.model.Tuser;
+import com.help.server.model.WxUserInfo;
 import com.help.server.service.TuserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +61,22 @@ public class TuserController {
             return ResultHandler.handleSuccess("修改用户信息成功",null);
         }else{
             return ResultHandler.createErrorResult("修改用户信息失败，请稍后重试");
+        }
+    }
+
+    /**
+     * 用户信息新增
+     * @param user 用户信息
+     * @return
+     */
+    @RequestMapping(value = "/addWxUserInfo")
+    public ResultDTO addWxUserInfo(WxUserInfo user) {
+        Tuser tuser= user.wxUserToTuser();
+        boolean result = tuserService.addWxUserInfo(tuser);
+        if(result){
+            return ResultHandler.handleSuccess("添加用户成功",tuser);
+        }else{
+            return ResultHandler.createErrorResult("添加用户失败，请稍后重试");
         }
     }
 

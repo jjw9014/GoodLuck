@@ -117,6 +117,9 @@ public class QuestionFacadeImpl implements QuestionFacade {
         // 设置下载地址
         param.setPicList(getPictureByMd5s(param.getPicMd5()));
 
+        param.setNickName(StringUtils.isEmpty(param.getNickName())? "": param.getNickName());
+        param.setHeadImgUrl(StringUtils.isEmpty(param.getHeadImgUrl())? "": param.getHeadImgUrl());
+
         return param;
     }
 

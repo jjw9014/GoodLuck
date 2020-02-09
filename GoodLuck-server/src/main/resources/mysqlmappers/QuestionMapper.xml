@@ -19,6 +19,8 @@
     <result column="wx_number" jdbcType="VARCHAR" property="wxNumber" />
     <result column="stars" jdbcType="INTEGER" property="stars" />
     <result column="pic_md5" jdbcType="VARCHAR" property="picMd5" />
+    <result column="nick_name" jdbcType="INTEGER" property="nickName" />
+    <result column="head_img_url" jdbcType="VARCHAR" property="headImgUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -28,16 +30,16 @@
             <foreach collection="criteria.criteria" item="criterion">
               <choose>
                 <when test="criterion.noValue">
-                  and ${criterion.condition}
+                  and T1.${criterion.condition}
                 </when>
                 <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
+                  and T1.${criterion.condition} #{criterion.value}
                 </when>
                 <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                  and T1.${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
                 <when test="criterion.listValue">
-                  and ${criterion.condition}
+                  and T1.${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
@@ -79,8 +81,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    number, tag, state, audit_state, pub_time, pub_user_id, province, city, district, 
-    street, remark, audit_time, last_update_time, mobile, wx_number, stars, pic_md5
+    T1.number, T1.tag, T1.state, T1.audit_state, T1.pub_time, T1.pub_user_id, T1.province, T1.city, T1.district,
+    T1.street, T1.remark, T1.audit_time, T1.last_update_time, T1.mobile, T1.wx_number, T1.stars, T1.pic_md5,T2.nick_name,T2.head_img_url
   </sql>
   <select id="selectByExample" parameterType="com.help.server.model.QuestionExample" resultMap="BaseResultMap">
     select
@@ -88,7 +90,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from question
+    from question T1 LEFT JOIN tuser T2 ON T1.pub_user_id = T2.id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -99,7 +101,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from question
+    from question T1 LEFT JOIN tuser T2 ON T1.pub_user_id = T2.id
     where number = #{number,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
@@ -107,7 +109,7 @@
     where number = #{number,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.help.server.model.QuestionExample">
-    delete from question
+    delete from question T1
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -236,7 +238,7 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.help.server.model.QuestionExample" resultType="java.lang.Integer">
-    select count(*) from question
+    select count(*) from question   T1
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>

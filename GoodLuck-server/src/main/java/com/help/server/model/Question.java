@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Question implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private String number;
 
     private String tag;
@@ -38,7 +41,9 @@ public class Question implements Serializable {
 
     private String picMd5;
 
-    private static final long serialVersionUID = 1L;
+    private String nickName;
+
+    private String headImgUrl;
 
     public String getNumber() {
         return number;
@@ -174,5 +179,21 @@ public class Question implements Serializable {
 
     public void setPicMd5(String picMd5) {
         this.picMd5 = picMd5;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public String getHeadImgUrl() {
+        return headImgUrl;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void setHeadImgUrl(String headImgUrl) {
+        this.headImgUrl = headImgUrl;
     }
 }

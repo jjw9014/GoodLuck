@@ -53,6 +53,10 @@ public class QuestionParam implements Serializable {
 
     private List<PictureParam> picList;
 
+    private String nickName;
+
+    private String headImgUrl;
+
     private static final long serialVersionUID = 1L;
 
     public String getNumber() {
@@ -245,5 +249,21 @@ public class QuestionParam implements Serializable {
 
     public void setPicList(List<PictureParam> picList) {
         this.picList = picList;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public String getHeadImgUrl() {
+        return headImgUrl;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void setHeadImgUrl(String headImgUrl) {
+        this.headImgUrl = headImgUrl;
     }
 }
