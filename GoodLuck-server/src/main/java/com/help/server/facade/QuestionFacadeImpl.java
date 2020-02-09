@@ -41,7 +41,6 @@ public class QuestionFacadeImpl implements QuestionFacade {
 
         QuestionParam param = new QuestionParam();
         param.setNumber(number);
-        param.setPubUserId(userId);
 
         Question question = questionService.info(number);
         CommonUtils.assertNullField(question, ResultCodeEnum.QUESTION_NUMBER_NOT_EXIST);
@@ -68,7 +67,6 @@ public class QuestionFacadeImpl implements QuestionFacade {
 
         QuestionParam param = new QuestionParam();
         param.setNumber(number);
-        param.setPubUserId(userId);
         param.setState(StateEnum.RESOLVED.getCode());
 
         return ResultHandler.handleSuccess(questionService.submit(param));
