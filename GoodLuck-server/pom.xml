@@ -407,11 +407,20 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+                <filtering>true</filtering>
                 <excludes>
                     <exclude>mybatis-generator/*.*</exclude>
+                    <exclude>*.keystore</exclude>
                 </excludes>
-                <filtering>true</filtering>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>*.keystore</include>
+                </includes>
+            </resource>
+
         </resources>
         <plugins>
             <plugin>

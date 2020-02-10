@@ -17,11 +17,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-/**
- * mysql数据源配置
- * @author Liam(003046)
- * @date 2019/7/10 下午4:48
- */
 @Configuration
 @MapperScan(basePackages = {"com.help.server.dao"},sqlSessionTemplateRef = "mysqlSqlSessionTemplate")
 public class MysqlDatasourceConfig {
