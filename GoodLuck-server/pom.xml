@@ -411,6 +411,7 @@
                 <excludes>
                     <exclude>mybatis-generator/*.*</exclude>
                     <exclude>*.keystore</exclude>
+                    <exclude>*.jks</exclude>
                 </excludes>
             </resource>
             <resource>
@@ -418,6 +419,7 @@
                 <filtering>false</filtering>
                 <includes>
                     <include>*.keystore</include>
+                    <include>*.jks</include>
                 </includes>
             </resource>
 
