@@ -72,6 +72,13 @@ public class AuthUtil {
     public static final String MINI_PRO_LOGIN_VALIDATE_URL = "https://api.weixin.qq.com/sns/jscode2session";
 
     /**
+     * 小程序TOKEN 获取url
+     */
+    public static final String MINI_PRO_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token";
+
+
+
+    /**
      * 从cookie获取openId
      * @param request
      * @return

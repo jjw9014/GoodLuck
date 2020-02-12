@@ -1,9 +1,11 @@
 package com.help.server.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.help.api.ResultDTO;
 import com.help.server.common.AuthUtil;
 import com.help.server.common.HttpClientUtil;
 import com.help.server.common.JedisUtils;
+import com.help.server.common.ResultHandler;
 import com.help.server.model.Tuser;
 import com.help.server.model.WxToken;
 import com.help.server.service.TuserService;
@@ -32,34 +34,6 @@ public class WxLoginController {
 
     @Autowired
     private TuserService tuserService;
-
-    @RequestMapping("/wxLoginTest")
-    public void wxLogin(String openId, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String accessToken = "1qazxsw23edcvfr4";
-        int expiresIn = 300;
-        String refreshToken = "cde32wsxzaq14rfv";
-        String scope = "self";
-
-        //将微信用户信息存入redis中
-        WxToken wxToken = new WxToken(openId,accessToken,expiresIn,refreshToken,scope);
-        JedisUtils.setObject(openId,wxToken,expiresIn);
-        log.info("用户id：{} 登录成功，失效时长：{}",openId,expiresIn);
-
-        //添加cookie
-        Cookie cookie = new Cookie("wx_openid",openId);
-        cookie.setMaxAge(300);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-
-        String imgUrl = "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0";
-        Date date = new Date();
-        Tuser tuser = new Tuser(openId,"liuyun",1,"山西","太原","中国",imgUrl,"o6_bmasdasdsad6_2sgVt7hMZOPfL",date);
-        tuserService.addWxUserInfo(tuser);
-
-        // 这里是授权成功返回的页面
-        response.sendRedirect("/ceshi.html?code=1");
-    }
 
     /**
      * 登录成功的回调函数
@@ -128,4 +102,36 @@ public class WxLoginController {
             response.sendRedirect(AuthUtil.WX_AUTH_SUCCESS_URL + "?code=0");
         }
     }
+
+    /**
+     * 登录成功的回调函数
+     *
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/getAccessToken")
+    public ResultDTO getAccessToken(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String token = JedisUtils.get("MINI_PRO_TOKEN");
+        if(token != null){
+            return ResultHandler.handleSuccess(token);
+        }else{
+            String url = AuthUtil.MINI_PRO_TOKEN_URL + "?grant_type=client_credential&appid=" + AuthUtil.APP_ID + "&secret=" + AuthUtil.APP_SECRET;
+            JSONObject jsonObject = HttpClientUtil.doGetJson(url);
+            if(jsonObject != null){
+                token =  jsonObject.getString("access_token");
+                if(token != null ){
+                    int expiresIn = jsonObject.getIntValue("expires_in");
+                    JedisUtils.set("MINI_PRO_TOKEN",token,expiresIn);
+                    return ResultHandler.handleSuccess(token);
+                }else{
+                    String errMsg = jsonObject.getString("errmsg");
+                    return ResultHandler.createErrorResult( errMsg != null ? errMsg : "获取accessToken失败");
+                }
+            }else {
+                return ResultHandler.createErrorResult("获取accessToken失败");
+            }
+        }
+    }
+
+
 }
