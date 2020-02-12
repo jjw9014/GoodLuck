@@ -1,7 +1,7 @@
 package com.help.server.common;
 
 public enum StateEnum {
-    RESOLVED("resolved", "已解决"), UNRESOLVED("unresolved", "未解决");
+    RESOLVED("resolved", "已解决"), UNRESOLVED("unresolved", "未解决"), DELETED("deleted", "已删除");
 
     private String code;
     private String desc;
