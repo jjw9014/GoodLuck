@@ -118,6 +118,8 @@ public class QuestionServiceImpl implements IQuestionService {
             criteria.andWxNumberEqualTo(pageParam.getWxNumber());
         }
 
+        criteria.andStateNotEqualTo(StateEnum.DELETED.getCode());
+
         if (!StringUtils.isEmpty(pageParam.getOrderBy())) {
             example.setOrderByClause(pageParam.getOrderBy());
         }

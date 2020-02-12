@@ -301,6 +301,17 @@ public class QuestionController {
         return JSON.toJSONString(questionFacade.resolve(number, userId));
     }
 
+    // http://127.0.0.1:9090/question/delete?number=2020-01-28-000001&userId=chuanqirensheng
+    @RequestMapping(value="/delete")
+    @ResponseBody
+    public String delete(String number, String userId) {
+        Map<String, Object> paramMap = GetParamsUtils.getParamsMap();
+        number = (String) GetParamsUtils.getValueIfNull(number, paramMap.get("number"));
+        userId = (String) GetParamsUtils.getValueIfNull(userId, paramMap.get("userId"));
+
+        return JSON.toJSONString(questionFacade.depreate(number, userId));
+    }
+
     // http://127.0.0.1:9090/question/list?pageSize=10&pageNo=1&starsMin=3&starsMax=5&province=360000&city=361000&district=361025&street=%E6%9C%9B%E4%BB%99%E9%95%87&mobile=13265479740
     @RequestMapping(value="/list")
     @ResponseBody

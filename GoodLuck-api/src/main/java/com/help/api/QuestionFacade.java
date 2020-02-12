@@ -18,4 +18,6 @@ public interface QuestionFacade {
     public ResultDTO<QuestionParam> info(String number);
 
     public ResultDTO<QuestionCountDTO> count();
+
+    public ResultDTO depreate(String number, String userId);
 }

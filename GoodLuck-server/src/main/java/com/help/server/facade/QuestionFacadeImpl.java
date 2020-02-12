@@ -187,4 +187,16 @@ public class QuestionFacadeImpl implements QuestionFacade {
 
         return ResultHandler.handleSuccess(countDTO);
     }
+
+    @Override
+    public ResultDTO depreate(String number, String userId) {
+        CommonUtils.assertEmptyField(number, ResultCodeEnum.QUESTION_NUMBER_IS_NULL);
+        CommonUtils.assertEmptyField(userId, ResultCodeEnum.QUESTION_USER_IS_NULL);
+
+        QuestionParam param = new QuestionParam();
+        param.setNumber(number);
+        param.setState(StateEnum.DELETED.getCode());
+
+        return ResultHandler.handleSuccess(questionService.submit(param));
+    }
 }
