@@ -5,8 +5,10 @@ import com.help.api.ResultDTO;
 import com.help.server.common.AuthUtil;
 import com.help.server.common.HttpClientUtil;
 import com.help.server.common.ResultHandler;
+import com.help.server.common.SenInfoCheckUtil;
 import com.help.server.model.Tuser;
 import com.help.server.model.WxUserInfo;
+import com.help.server.service.SenInfoCheckService;
 import com.help.server.service.TuserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,9 @@ public class TuserController {
 
     @Autowired
     private TuserService tuserService;
+
+    @Autowired
+    private SenInfoCheckService senInfoCheckService;
 
     /**
      * 获取用户信息
@@ -57,7 +62,12 @@ public class TuserController {
      * @return
      */
     @RequestMapping(value = "/edit")
-    public ResultDTO editUserInfo(Tuser user) {
+    public ResultDTO editUserInfo(Tuser user,HttpServletRequest request) {
+        String content = SenInfoCheckUtil.makeUpParams(request);
+        if(!senInfoCheckService.checkContent(content)){
+            return ResultHandler.createErrorResult("输入内容非法");
+        }
+
         boolean result = tuserService.editUserInfo(user);
         if(result){
             return ResultHandler.handleSuccess("修改用户信息成功",null);

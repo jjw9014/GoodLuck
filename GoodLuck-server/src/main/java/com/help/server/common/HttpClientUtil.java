@@ -2,6 +2,7 @@
 package com.help.server.common;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -22,6 +23,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +35,7 @@ import java.util.Map;
  * @Version 1.0
  **/
 public class HttpClientUtil {
+
 
 	/**
 	 * get请求，参数拼接在地址上
@@ -129,7 +132,7 @@ public class HttpClientUtil {
 	 * @param map 参数
 	 * @return 返回值
 	 */
-	public String postMap(String url, Map<String, String> map) {
+	public static String postMap(String url, Map<String, String> map) {
 		String result = null;
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost post = new HttpPost(url);
@@ -173,7 +176,7 @@ public class HttpClientUtil {
 	 * @param jsonString json字符串
 	 * @return 响应
 	 */
-	public String postJson(String url, String jsonString) {
+	public static String postJson(String url, String jsonString) {
 		String result = null;
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost post = new HttpPost(url);
@@ -181,8 +184,10 @@ public class HttpClientUtil {
 		try {
 			post.setEntity(new ByteArrayEntity(jsonString.getBytes("UTF-8")));
 			response = httpClient.execute(post);
+
 			if (response != null && response.getStatusLine().getStatusCode() == 200) {
 				HttpEntity entity = response.getEntity();
+				Header header = entity.getContentType();
 				result = entityToString(entity);
 			}
 			return result;
@@ -223,13 +228,6 @@ public class HttpClientUtil {
 			}
 		}
 		return result;
-	}
-
-	public static void main(String[] args) {
-		String result = get("http://api.map.baidu.com/geocoder/v2/"
-				+ "?ak=5E5EE28a7615536d1ffe2ce2a3667859&callback=renderReverse&location=39.983424,116.322987&output=json&pois=1");
-		System.out.print(result);
-
 	}
 
 }

@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.help.api.*;
 import com.help.server.common.FileUtil;
 import com.help.server.common.GetParamsUtils;
+import com.help.server.common.ResultHandler;
+import com.help.server.service.SenInfoCheckService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,18 @@ public class PictureController {
     @Autowired
     private PictureFacade pictureFacade;
 
+    @Autowired
+    private SenInfoCheckService senInfoCheckService;
+
     // http://127.0.0.1:9090/picture/upload
     @PostMapping(value="/upload")
     @ResponseBody
     public String upload(@RequestParam("pic") MultipartFile file) {
-
+        //图片校验
+        boolean picCheckResult = senInfoCheckService.checkPic(file);
+        if(!picCheckResult){
+            return JSON.toJSONString(ResultHandler.createErrorResult("图片内容非法"));
+        }
         PictureParam pictureParam = new PictureParam();
         pictureParam.setPicName(file.getOriginalFilename());
         pictureParam.setPicSuffix(file.getContentType());

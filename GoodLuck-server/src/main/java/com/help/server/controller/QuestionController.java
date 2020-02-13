@@ -3,6 +3,7 @@ package com.help.server.controller;
 import com.alibaba.fastjson.JSON;
 import com.help.api.*;
 import com.help.server.common.*;
+import com.help.server.service.SenInfoCheckService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
@@ -21,6 +23,9 @@ public class QuestionController {
 
     @Autowired
     private QuestionFacade questionFacade;
+
+    @Autowired
+    private SenInfoCheckService senInfoCheckService;
 
     // http://127.0.0.1:9090/question/sumByState
     @RequestMapping(value="/sumByState")
@@ -242,7 +247,12 @@ public class QuestionController {
     // http://127.0.0.1:9090/question/pub?remark=买不到医用口罩&tag=A&pubUserId=chuanqirensheng&province=360000&city=361000&district=361025&street=招携镇&mobile=13265479740
     @RequestMapping(value="/pub")
     @ResponseBody
-    public String pub(QuestionParam param) {
+    public String pub(QuestionParam param, HttpServletRequest request) {
+
+        String content = SenInfoCheckUtil.makeUpParams(request);
+        if(!senInfoCheckService.checkContent(content)){
+            return JSON.toJSONString(ResultHandler.createErrorResult("输入内容非法"));
+        }
         QuestionParam postParam = GetParamsUtils.getParamsObject(QuestionParam.class);
 
         param = postParam==null?param:postParam;

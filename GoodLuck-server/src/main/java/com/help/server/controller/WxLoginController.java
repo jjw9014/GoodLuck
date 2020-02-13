@@ -9,6 +9,7 @@ import com.help.server.common.ResultHandler;
 import com.help.server.model.Tuser;
 import com.help.server.model.WxToken;
 import com.help.server.service.TuserService;
+import com.help.server.service.WxO2oService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,9 @@ public class WxLoginController {
 
     @Autowired
     private TuserService tuserService;
+
+    @Autowired
+    private WxO2oService wxO2oService;
 
     /**
      * 登录成功的回调函数
@@ -111,27 +115,12 @@ public class WxLoginController {
      */
     @RequestMapping("/getAccessToken")
     public ResultDTO getAccessToken(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String token = JedisUtils.get("MINI_PRO_TOKEN");
+        String token = wxO2oService.getAccessToken();
         if(token != null){
             return ResultHandler.handleSuccess(token);
         }else{
-            String url = AuthUtil.MINI_PRO_TOKEN_URL + "?grant_type=client_credential&appid=" + AuthUtil.APP_ID + "&secret=" + AuthUtil.APP_SECRET;
-            JSONObject jsonObject = HttpClientUtil.doGetJson(url);
-            if(jsonObject != null){
-                token =  jsonObject.getString("access_token");
-                if(token != null ){
-                    int expiresIn = jsonObject.getIntValue("expires_in");
-                    JedisUtils.set("MINI_PRO_TOKEN",token,expiresIn);
-                    return ResultHandler.handleSuccess(token);
-                }else{
-                    String errMsg = jsonObject.getString("errmsg");
-                    return ResultHandler.createErrorResult( errMsg != null ? errMsg : "获取accessToken失败");
-                }
-            }else {
-                return ResultHandler.createErrorResult("获取accessToken失败");
-            }
+            return ResultHandler.createErrorResult("获取accessToken失败");
         }
     }
-
 
 }
