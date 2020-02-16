@@ -2,6 +2,8 @@ package com.help.server.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.help.api.ResultDTO;
+import com.help.api.TuserPageParam;
+import com.help.api.TuserParam;
 import com.help.server.common.AuthUtil;
 import com.help.server.common.HttpClientUtil;
 import com.help.server.common.ResultHandler;
@@ -44,7 +46,7 @@ public class TuserController {
             openId = AuthUtil.getAuthOpenIdFromCookie(request);
         }
         if(openId != null){
-            Tuser tuser = tuserService.getUserInfoByOpenId(openId);
+            TuserParam tuser = tuserService.getUserInfoByOpenId(openId);
             if(tuser != null){
                 return ResultHandler.handleSuccess(tuser);
             }else{
@@ -55,6 +57,17 @@ public class TuserController {
         }
 
     }
+
+    /**
+     * 通过条件获取用户信息
+     * @param param 用户信息
+     * @return
+     */
+    @RequestMapping(value = "/getUsersByCondition")
+    public ResultDTO get(TuserPageParam param, HttpServletRequest request) {
+        return tuserService.getListByConditon(param);
+    }
+
 
     /**
      * 用户信息修改
@@ -75,6 +88,26 @@ public class TuserController {
             return ResultHandler.createErrorResult("修改用户信息失败，请稍后重试");
         }
     }
+
+
+
+    /**
+     * 用户身份认证
+     * @param userId
+     * @param identityType
+     * @return
+     */
+    @RequestMapping(value = "/indentityUser")
+    public ResultDTO indentityUser(String userId, int identityType) {
+        boolean result = tuserService.indentityUser(userId,identityType);
+        if(result){
+            return ResultHandler.handleSuccess("修改用户身份成功",null);
+        }else{
+            return ResultHandler.createErrorResult("修改用户身份失败");
+        }
+    }
+
+
 
     /**
      * 用户信息新增
@@ -106,6 +139,8 @@ public class TuserController {
             return ResultHandler.createErrorResult("注册失败，请稍后重试");
         }
     }
+
+
 
 
 }

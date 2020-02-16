@@ -57,6 +57,8 @@ public class QuestionParam implements Serializable {
 
     private String headImgUrl;
 
+    private String identity;
+
     private static final long serialVersionUID = 1L;
 
     public String getNumber() {
@@ -265,5 +267,13 @@ public class QuestionParam implements Serializable {
 
     public void setHeadImgUrl(String headImgUrl) {
         this.headImgUrl = headImgUrl;
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 }

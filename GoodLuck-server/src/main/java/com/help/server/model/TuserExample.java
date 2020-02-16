@@ -1075,6 +1075,66 @@ public class TuserExample {
             return (Criteria) this;
         }
 
+        public Criteria andIdentityTypeIsNull() {
+            addCriterion("identity_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityTypeIsNotNull() {
+            addCriterion("identity_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityTypeEqualTo(Integer value) {
+            addCriterion("identity_type =", value, "identityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityTypeNotEqualTo(Integer value) {
+            addCriterion("identity_type <>", value, "identityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityTypeGreaterThan(Integer value) {
+            addCriterion("identity_type >", value, "identityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("identity_type >=", value, "identityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityTypeLessThan(Integer value) {
+            addCriterion("identity_type <", value, "identityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("identity_type <=", value, "identityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityTypeIn(List<Integer> values) {
+            addCriterion("identity_type in", values, "identityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityTypeNotIn(List<Integer> values) {
+            addCriterion("identity_type not in", values, "identityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityTypeBetween(Integer value1, Integer value2) {
+            addCriterion("identity_type between", value1, value2, "identityType");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("identity_type not between", value1, value2, "identityType");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

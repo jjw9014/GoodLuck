@@ -1,6 +1,11 @@
 package com.help.server.service;
 
+import com.help.api.ResultDTO;
+import com.help.api.TuserPageParam;
+import com.help.api.TuserParam;
 import com.help.server.model.Tuser;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,7 +22,7 @@ public interface TuserService {
      * @param openId
      * @return
      */
-    Tuser getUserInfoByOpenId(String openId);
+    TuserParam getUserInfoByOpenId(String openId);
 
     /**
      * 添加微信登录用户
@@ -38,14 +43,14 @@ public interface TuserService {
      * @param set
      * @return
      */
-    Map<String,Tuser> list(Set<String> set);
+    Map<String,TuserParam> list(Set<String> set);
 
     /**
      * 获取用户信息转为集合
      * @param openId
      * @return
      */
-    Map<String,Tuser> getUserInfoToMap(String openId);
+    Map<String,TuserParam> getUserInfoToMap(String openId);
 
     /**
      * 注册
@@ -53,5 +58,31 @@ public interface TuserService {
      * @return
      */
     void register(Tuser tuser);
+
+    /**
+     * 通过条件查询用户集合
+     * @param pageParam
+     * @return
+     */
+    ResultDTO getListByConditon(TuserPageParam pageParam);
+
+    /**
+     * 获取用户列表
+     * @param pageParam
+     * @return
+     */
+    List<TuserParam> getUserList(TuserPageParam pageParam);
+
+    /**
+     * 身份认证
+     * @param userId 用户id
+     * @param identityType 身份类别
+     * @return
+     */
+    boolean indentityUser(String userId,int identityType);
+
+
+
+
 
 }

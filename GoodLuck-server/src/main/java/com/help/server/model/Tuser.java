@@ -32,6 +32,8 @@ public class Tuser implements Serializable {
 
     private String unionId;
 
+    private Integer identityType;
+
     private Date createTime;
 
     private Date lastUpdateTime;
@@ -152,6 +154,14 @@ public class Tuser implements Serializable {
         this.unionId = unionId;
     }
 
+    public Integer getIdentityType() {
+        return identityType;
+    }
+
+    public void setIdentityType(Integer identityType) {
+        this.identityType = identityType;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -176,10 +186,7 @@ public class Tuser implements Serializable {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public Tuser() {
-    }
-
-    public Tuser(String id, String nickName, Integer sex, String province, String city, String country, String headImgUrl, String unionId, Date lastLoginTime) {
+    public Tuser(String id, String nickName, Integer sex, String province, String city, String country, String headImgUrl, String unionId,Date createTime) {
         this.id = id;
         this.nickName = nickName;
         this.sex = sex;
@@ -188,6 +195,9 @@ public class Tuser implements Serializable {
         this.country = country;
         this.headImgUrl = headImgUrl;
         this.unionId = unionId;
-        this.lastLoginTime = lastLoginTime;
+        this.createTime = createTime;
+    }
+
+    public Tuser() {
     }
 }

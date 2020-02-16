@@ -1,10 +1,8 @@
 package com.help.server.facade;
 
-import com.github.pagehelper.util.StringUtil;
 import com.help.api.*;
 import com.help.server.common.*;
 import com.help.server.model.Question;
-import com.help.server.model.Tuser;
 import com.help.server.service.IQuestionService;
 import com.help.server.service.PictureService;
 import com.help.server.service.TuserService;
@@ -101,7 +99,7 @@ public class QuestionFacadeImpl implements QuestionFacade {
             for (Question question : list) {
                 pubUserSet.add(question.getPubUserId());
             }
-            Map<String, Tuser> tuserMap = tuserService.list(pubUserSet);
+            Map<String, TuserParam> tuserMap = tuserService.list(pubUserSet);
             for (Question question : list) {
                 respList.add(question2Resp(question,tuserMap));
             }
@@ -111,7 +109,7 @@ public class QuestionFacadeImpl implements QuestionFacade {
         return ResultHandler.handleSuccessWithCount(respList, count);
     }
 
-    private QuestionParam question2Resp(Question question,Map<String, Tuser> tuserMap) {
+    private QuestionParam question2Resp(Question question,Map<String, TuserParam> tuserMap) {
         QuestionParam param = new QuestionParam();
         BeanUtils.copyProperties(question, param);
 
@@ -127,12 +125,14 @@ public class QuestionFacadeImpl implements QuestionFacade {
 
         String pubUserId = param.getPubUserId();
         if(pubUserId != null && tuserMap.containsKey(pubUserId)){
-            Tuser user = tuserMap.get(pubUserId);
+            TuserParam user = tuserMap.get(pubUserId);
             param.setNickName(user.getNickName());
             param.setHeadImgUrl(user.getHeadImgUrl());
+            param.setIdentity(user.getIdentity());
         }else{
             param.setNickName("");
             param.setHeadImgUrl("");
+            param.setIdentity("未知");
         }
 
         return param;
