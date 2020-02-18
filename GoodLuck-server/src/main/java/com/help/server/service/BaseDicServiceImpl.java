@@ -26,7 +26,7 @@ public class BaseDicServiceImpl implements BaseDicService, ApplicationRunner {
         BaseDicExample example = new BaseDicExample();
         BaseDicExample.Criteria criteria= example.createCriteria();
         criteria.andCodeEqualTo("identity_type");
-        example.setOrderByClause(" item_value ASC");
+        example.setOrderByClause(" CAST(item_value AS SIGNED)  ASC ");
         List<BaseDic> list = baseDicMapper.selectByExample(example);
         if(!list.isEmpty()){
             for(int i= 0;i<list.size();i++){

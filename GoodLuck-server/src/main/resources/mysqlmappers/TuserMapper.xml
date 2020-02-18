@@ -415,4 +415,23 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
+
+  <resultMap id="IdentityResultMap" type="com.help.api.TuserGroupDTO">
+    <result column="identityType" jdbcType="INTEGER" property="identityType" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+
+  <select id="selectIdentityCount" parameterType="com.help.server.model.TuserExample" resultMap="IdentityResultMap">
+    select
+     identity_type as identityType,count(1) as count
+    from tuser
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    group by identity_type
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+
 </mapper>

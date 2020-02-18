@@ -108,6 +108,15 @@ public class TuserController {
     }
 
 
+    /**
+     * 通过不同身份的数量
+     * @param param 用户信息
+     * @return
+     */
+    @RequestMapping(value = "/getIndentityCount")
+    public ResultDTO getIndentityCount(TuserPageParam param, HttpServletRequest request) {
+        return ResultHandler.handleSuccess(tuserService.selectIdentityCount(param));
+    }
 
     /**
      * 用户信息新增

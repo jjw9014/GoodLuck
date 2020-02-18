@@ -138,4 +138,15 @@ public class QuestionServiceImpl implements IQuestionService {
     public Question info(String number) {
         return questionMapper.selectByPrimaryKey(number);
     }
+
+    @Override
+    public int countByPubPeople(String userId) {
+        QuestionExample example = new QuestionExample();
+        QuestionExample.Criteria criteria = example.createCriteria();
+        criteria.andPubUserIdEqualTo(userId);
+        criteria.andStateNotEqualTo("deleted");
+        return questionMapper.countByExample(example);
+    }
+
+
 }

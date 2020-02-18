@@ -1,6 +1,7 @@
 package com.help.server.service;
 
 import com.help.api.ResultDTO;
+import com.help.api.TuserGroupDTO;
 import com.help.api.TuserPageParam;
 import com.help.api.TuserParam;
 import com.help.server.model.Tuser;
@@ -81,8 +82,12 @@ public interface TuserService {
      */
     boolean indentityUser(String userId,int identityType);
 
-
-
+    /**
+     * 获取不同身份的人数
+     * @param pageParam
+     * @return
+     */
+    List<TuserGroupDTO> selectIdentityCount(TuserPageParam pageParam);
 
 
 }

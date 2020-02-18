@@ -1,5 +1,6 @@
 package com.help.server.dao;
 
+import com.help.api.TuserGroupDTO;
 import com.help.server.model.Tuser;
 import com.help.server.model.TuserExample;
 import java.util.List;
@@ -27,4 +28,8 @@ public interface TuserMapper {
     int updateByPrimaryKeySelective(Tuser record);
 
     int updateByPrimaryKey(Tuser record);
+
+    List<TuserGroupDTO> selectIdentityCount(TuserExample example);
+
+
 }

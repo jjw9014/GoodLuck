@@ -47,6 +47,8 @@ public class TuserParam implements Serializable {
 
     private Date lastLoginTime;
 
+    private int pubNum;
+
     public String getName() {
         return name;
     }
@@ -205,5 +207,13 @@ public class TuserParam implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getPubNum() {
+        return pubNum;
+    }
+
+    public void setPubNum(int pubNum) {
+        this.pubNum = pubNum;
     }
 }

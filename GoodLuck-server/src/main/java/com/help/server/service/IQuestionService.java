@@ -14,4 +14,6 @@ public interface IQuestionService {
     public int count(QuestionPageParam pageParam);
 
     public Question info(String number);
+
+    public int countByPubPeople(String userId);
 }

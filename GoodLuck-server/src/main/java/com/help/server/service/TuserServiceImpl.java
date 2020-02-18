@@ -2,6 +2,7 @@ package com.help.server.service;
 
 import com.github.pagehelper.PageHelper;
 import com.help.api.ResultDTO;
+import com.help.api.TuserGroupDTO;
 import com.help.api.TuserPageParam;
 import com.help.api.TuserParam;
 import com.help.server.cache.StaticDataCache;
@@ -31,6 +32,9 @@ public class TuserServiceImpl implements TuserService{
 
     @Resource
     private TuserMapper tuserMapper;
+
+    @Resource
+    private IQuestionService iQuestionService;
 
 
     @Override
@@ -177,8 +181,10 @@ public class TuserServiceImpl implements TuserService{
     private void tuserToTuserParam(Tuser tuser,TuserParam tuserParam){
         if (!StringUtils.isEmpty(tuser.getId())) {
             tuserParam.setId(tuser.getId());
+            tuserParam.setPubNum(iQuestionService.countByPubPeople(tuser.getId()));
         }else{
             tuserParam.setName("");
+            tuserParam.setPubNum(0);
         }
         if (!StringUtils.isEmpty(tuser.getName())) {
             tuserParam.setName(tuser.getName());
@@ -271,7 +277,7 @@ public class TuserServiceImpl implements TuserService{
             tuserParam.setIdentity(StaticDataCache.IDENTITY_TYPE_MAP.containsKey(indentityType + "") ?
                     StaticDataCache.IDENTITY_TYPE_MAP.get(indentityType + "") : "未知");
         }else{
-            tuserParam.setIdentityType(0);
+            tuserParam.setIdentityType(255);
             tuserParam.setIdentity( "未知");
         }
 
@@ -370,4 +376,46 @@ public class TuserServiceImpl implements TuserService{
         }
         return false;
     }
+
+    @Override
+    public List<TuserGroupDTO> selectIdentityCount(TuserPageParam pageParam) {
+
+        TuserExample example = getTuserExample(pageParam);
+        example.setOrderByClause(" identity_type asc ");
+        List<TuserGroupDTO> list = tuserMapper.selectIdentityCount(example);
+        List<TuserGroupDTO> result = new LinkedList<TuserGroupDTO>();
+        Map<String,TuserGroupDTO> identityMap = new HashMap<>();
+        int totalCount = 0;
+        for (int i = 0; i < list.size(); i++) {
+            TuserGroupDTO tuserGroupDTO = list.get(i);
+            totalCount += tuserGroupDTO.getCount();
+            Integer indentityType = tuserGroupDTO.getIdentityType();
+            if(indentityType ==  null){
+                indentityType = 255;
+                tuserGroupDTO.setIdentityType(indentityType);
+            }
+            tuserGroupDTO.setIdentity(StaticDataCache.IDENTITY_TYPE_MAP.containsKey(indentityType + "") ?
+                    StaticDataCache.IDENTITY_TYPE_MAP.get(indentityType+ "") : "未知");
+            identityMap.put(indentityType + "",tuserGroupDTO);
+        }
+        TuserGroupDTO tuserGroupDTO = new TuserGroupDTO();
+        tuserGroupDTO.setIdentityType(0);
+        tuserGroupDTO.setIdentity("全部");
+        tuserGroupDTO.setCount(totalCount);
+        result.add(tuserGroupDTO);
+        for (String key :StaticDataCache.IDENTITY_TYPE_MAP.keySet()) {
+            if(identityMap.containsKey(key)){
+                result.add(identityMap.get(key));
+            }else{
+                tuserGroupDTO = new TuserGroupDTO();
+                tuserGroupDTO.setIdentityType(Integer.valueOf(key));
+                tuserGroupDTO.setIdentity(StaticDataCache.IDENTITY_TYPE_MAP.get(key));
+                tuserGroupDTO.setCount(0);
+                result.add(tuserGroupDTO);
+            }
+        }
+        return result;
+    }
+
+
 }
