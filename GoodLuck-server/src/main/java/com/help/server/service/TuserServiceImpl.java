@@ -305,7 +305,7 @@ public class TuserServiceImpl implements TuserService{
         TuserExample example = new TuserExample();
         TuserExample.Criteria criteria = example.createCriteria();
         if (!StringUtils.isEmpty(pageParam.getId())) {
-            criteria.andIdIn(Arrays.asList(pageParam.getId().split(".")));
+            criteria.andIdIn(Arrays.asList(pageParam.getId().split(",")));
         }
         if (!StringUtils.isEmpty(pageParam.getName())) {
             criteria.andNameLike("%" + pageParam.getName() + "%");
