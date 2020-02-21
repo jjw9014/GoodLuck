@@ -98,10 +98,10 @@ public class TuserServiceImpl implements TuserService{
     @Override
     public Map<String, TuserParam> getUserInfoToMap(String openId) {
         Tuser user = tuserMapper.selectByPrimaryKey(openId);
-        TuserParam tuserParam = new TuserParam();
-        tuserToTuserParam(user,tuserParam);
         Map<String,TuserParam> map = new HashMap<>();
-        if(tuserParam != null){
+        if(user != null){
+            TuserParam tuserParam = new TuserParam();
+            tuserToTuserParam(user,tuserParam);
             map.put(user.getId(),tuserParam);
         }
         return map;
