@@ -54,4 +54,12 @@ public class Area implements Serializable {
     public void setAreaType(Integer areaType) {
         this.areaType = areaType;
     }
+
+    public Area(Integer id) {
+        this.id = id;
+    }
+
+    public void Area(){
+
+    }
 }

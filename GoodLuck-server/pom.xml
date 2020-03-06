@@ -375,9 +375,9 @@
             </activation>
             <properties>
                 <profile.active>dev</profile.active>
-                <mysql.jdbc.url>jdbc:mysql://127.0.0.1:3306/goodluck?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</mysql.jdbc.url>
+                <mysql.jdbc.url>jdbc:mysql://xxxxxxx:3306/goodluck</mysql.jdbc.url>
                 <mysql.jdbc.username>root</mysql.jdbc.username>
-                <mysql.jdbc.password>xxxxxxxxxxxx</mysql.jdbc.password>
+                <mysql.jdbc.password>xxxxxxxxxxx</mysql.jdbc.password>
             </properties>
         </profile>
 
@@ -385,18 +385,18 @@
             <id>uat</id>
             <properties>
                 <profile.active>uat</profile.active>
-                <mysql.jdbc.url>jdbc:mysql://127.0.0.1:3306/goodluck?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</mysql.jdbc.url>
+                <mysql.jdbc.url>jdbc:mysql://127.0.0.1:3306/goodluck?</mysql.jdbc.url>
                 <mysql.jdbc.username>root</mysql.jdbc.username>
-                <mysql.jdbc.password>xxxxxxxxx</mysql.jdbc.password>
+                <mysql.jdbc.password>xxxxxxxxxxxxxx</mysql.jdbc.password>
             </properties>
         </profile>
         <profile>
             <id>prd</id>
             <properties>
                 <profile.active>prd</profile.active>
-                <mysql.jdbc.url>jdbc:mysql://127.0.0.1:3306/goodluck?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8</mysql.jdbc.url>
+                <mysql.jdbc.url>jdbc:mysql://xxxxxxxxx:3306/goodluck</mysql.jdbc.url>
                 <mysql.jdbc.username>root</mysql.jdbc.username>
-                <mysql.jdbc.password>xxxxxxxxxx</mysql.jdbc.password>
+                <mysql.jdbc.password>xxxxxxxxxxxxx</mysql.jdbc.password>
             </properties>
         </profile>
 
