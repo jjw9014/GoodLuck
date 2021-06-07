@@ -33,7 +33,7 @@
         <version.commons.lang>2.6</version.commons.lang>
         <version.commons.io>2.6</version.commons.io>
         <version.slf4j>1.7.2</version.slf4j>
-        <version.logback>1.1.11</version.logback>
+        <version.logback>1.2.0</version.logback>
         <version.log4j.over.slf4j>1.7.2</version.log4j.over.slf4j>
         <version.servlet.api>3.1.0</version.servlet.api>
         <version.dom4j>1.6.1</version.dom4j>
