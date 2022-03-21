@@ -37,7 +37,7 @@
         <version.log4j.over.slf4j>1.7.2</version.log4j.over.slf4j>
         <version.servlet.api>3.1.0</version.servlet.api>
         <version.dom4j>1.6.1</version.dom4j>
-        <version.dubbo>2.5.3</version.dubbo>
+        <version.dubbo>2.6.9</version.dubbo>
         <version.javassist>3.20.0-GA</version.javassist>
         <version.spring.mybatis>1.2.2</version.spring.mybatis>
         <version.mybatis>3.2.7</version.mybatis>
