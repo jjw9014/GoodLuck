@@ -56,7 +56,7 @@
         <version.protobuf>2.5.0</version.protobuf>
         <version.protobuf.format>1.2</version.protobuf.format>
         <version.spring.redis>1.2.0.RELEASE</version.spring.redis>
-        <version.mysql>5.1.38</version.mysql>
+        <version.mysql>8.0.28</version.mysql>
         <version.druid>1.1.18</version.druid>
         <version.jackson.dataformat>2.3.0</version.jackson.dataformat>
         <version.spring-boot-starter-dubbo>1.0.1</version.spring-boot-starter-dubbo>
